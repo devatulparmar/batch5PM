@@ -2,7 +2,25 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(
-    MaterialApp(
+    const MaterialApp(
+      home: MyStatelessScreen(),
+    ),
+  );
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int count = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text("My App"),
@@ -17,99 +35,48 @@ void main() {
           elevation: 0,
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 100,
-              width: 100,
-              color: Colors.green,
-            ),
-            Container(
-              height: 100,
-              width: 50,
-              color: Colors.red,
-            ),
-            Container(
-              height: 100,
-              width: 100,
-              color: Colors.blue,
-            ),
-            Row(
-              children: [
-                Container(
-                  height: 100,
-                  width: 100,
-                  color: Colors.green,
-                ),
-                Column(
-                  children: [
-                    Container(
-                      height: 100,
-                      width: 50,
-                      color: Colors.red,
-                    ),
-                    Container(
-                      height: 100,
-                      width: 100,
-                      color: Colors.green,
-                    ),
-                    Container(
-                      height: 100,
-                      width: 50,
-                      color: Colors.red,
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 100,
-                  width: 100,
-                  color: Colors.green,
-                ),
-                Container(
-                  height: 100,
-                  width: 50,
-                  color: Colors.red,
-                ),
-                Container(
-                  height: 100,
-                  width: 100,
-                  color: Colors.green,
-                ),
-                Container(
-                  height: 100,
-                  width: 50,
-                  color: Colors.red,
-                ),
-              ],
-            ),
-            Container(
-              height: 100,
-              width: 100,
-              color: Colors.blue,
-            ),
-            Row(
-              children: [
-                Container(
-                  height: 100,
-                  width: 100,
-                  color: Colors.green,
-                ),
-                Container(
-                  height: 100,
-                  width: 50,
-                  color: Colors.red,
-                ),
-              ],
-            ),
-            Container(
-              height: 100,
-              width: 100,
-              color: Colors.blue,
+            Center(
+              child: Text('Clicked $count times'),
             ),
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            count = count + 1;
+            setState(() {});
+            print('Clicked');
+          },
+          child: const Icon(
+            Icons.add,
+          ),
+        ),
       ),
-    ),
-  );
+    );
+  }
+}
+
+class MyStatelessScreen extends StatelessWidget {
+  const MyStatelessScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(
+        children: [
+          Text('This is stateless class'),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print('clicked stateless');
+        },
+        child: Icon(
+          Icons.add,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+    );
+  }
 }
