@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(
-    const MaterialApp(
+    MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      // debugShowCheckedModeBanner: false,
       home: MyStatelessScreen(),
     ),
   );
@@ -29,7 +33,9 @@ class _MyAppState extends State<MyApp> {
           leading: const Icon(Icons.arrow_back),
           actions: const [
             Icon(Icons.refresh),
-            Text('Hello'),
+            Text(
+              'Hello',
+            ),
             Icon(Icons.person),
           ],
           elevation: 0,
@@ -45,7 +51,7 @@ class _MyAppState extends State<MyApp> {
           onPressed: () {
             count = count + 1;
             setState(() {});
-            print('Clicked');
+
           },
           child: const Icon(
             Icons.add,
@@ -64,13 +70,23 @@ class MyStatelessScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Column(
-        children: [
-          Text('This is stateless class'),
+        children: const [
+          Text(
+            'This is stateless classThis is stateless classThis is stateless classThis is stateless class',
+            textAlign: TextAlign.start,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+                color: Colors.red,
+                fontSize: 30,
+                fontWeight: FontWeight.normal,
+                wordSpacing: 1.5,
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('clicked stateless');
+
         },
         child: Icon(
           Icons.add,
