@@ -1,3 +1,4 @@
+import 'package:batch5pm/assets_example.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,7 +8,7 @@ void main() {
         primarySwatch: Colors.blue,
       ),
       // debugShowCheckedModeBanner: false,
-      home: MyStatelessScreen(),
+      home: const ImageScreen(),
     ),
   );
 }
@@ -51,7 +52,6 @@ class _MyAppState extends State<MyApp> {
           onPressed: () {
             count = count + 1;
             setState(() {});
-
           },
           child: const Icon(
             Icons.add,
@@ -70,29 +70,74 @@ class MyStatelessScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Column(
-        children: const [
-          Text(
-            'This is stateless classThis is stateless classThis is stateless classThis is stateless class',
-            textAlign: TextAlign.start,
-            overflow: TextOverflow.clip,
-            style: TextStyle(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: 100,
+                width: 100,
                 color: Colors.red,
-                fontSize: 30,
-                fontWeight: FontWeight.normal,
-                wordSpacing: 1.5,
-            ),
+              ),
+              Expanded(
+                flex: 6,
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  color: Colors.green,
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  color: Colors.yellow,
+                ),
+              ),
+            ],
           ),
+          SizedBox(height: 50,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                flex: 1,
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  color: Colors.purple,
+                ),
+              ),
+              Flexible(
+                flex: 6,
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  color: Colors.blue,
+                ),
+              ),
+              Flexible(
+                flex: 2,
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  color: Colors.orange,
+                ),
+              ),
+            ],
+          ),
+
+
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-
-        },
-        child: Icon(
-          Icons.add,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {},
+      //   child: Icon(
+      //     Icons.add,
+      //   ),
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }
