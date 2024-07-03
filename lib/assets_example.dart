@@ -1,3 +1,4 @@
+import 'package:batch5pm/utils/const.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -17,20 +18,20 @@ class _ImageScreenState extends State<ImageScreen> {
       ),
       body: Column(
         children: [
-          // Container(
-          //   // height: 400,
-          //   // width: 350,
-          //   color: Colors.red,
-          //   child: Image.asset(
-          //       "images/image1.jpg",
-          //     // height: 200,
-          //     // width: 200,
-          //     fit: BoxFit.contain,
-          //     alignment: Alignment.center,
-          //     scale:5.5,
-          //     // color: Colors.green,
-          //   ),
-          // ),
+          Container(
+            // height: 400,
+            // width: 350,
+            color: Colors.red,
+            child: Image.asset(
+              localImage,
+              // height: 200,
+              // width: 200,
+              fit: BoxFit.contain,
+              alignment: Alignment.center,
+              scale: 5.5,
+              // color: Colors.green,
+            ),
+          ),
 
           // Image(
           //   image: AssetImage(
@@ -68,8 +69,7 @@ class _ImageScreenState extends State<ImageScreen> {
           // ),
 
           CachedNetworkImage(
-            imageUrl:
-                "https://2.img-dpreviewcom/files/p/E~C1000x0S4000x4000T1200x1200~articles/3925134721/0266554465.jpeg",
+            imageUrl: img1,
             placeholder: (context, url) => CircularProgressIndicator(),
             errorWidget: (context, url, error) => Center(
               child: Icon(
