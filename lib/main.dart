@@ -1,6 +1,8 @@
 import 'package:batch5pm/assets_example.dart';
+import 'package:batch5pm/grid_screen.dart';
 import 'package:batch5pm/list.dart';
 import 'package:batch5pm/list_build.dart';
+import 'package:batch5pm/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,7 +12,7 @@ void main() {
         primarySwatch: Colors.blue,
       ),
       // debugShowCheckedModeBanner: false,
-      home: const ListBuildScreen(),
+      home: const ProfileScreen(),
     ),
   );
 }

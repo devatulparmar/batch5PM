@@ -69,7 +69,7 @@ class _ImageScreenState extends State<ImageScreen> {
           // ),
 
           CachedNetworkImage(
-            imageUrl: img1,
+            imageUrl: imgNetwork,
             placeholder: (context, url) => CircularProgressIndicator(),
             errorWidget: (context, url, error) => Center(
               child: Icon(
