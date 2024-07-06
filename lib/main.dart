@@ -3,6 +3,7 @@ import 'package:batch5pm/grid_screen.dart';
 import 'package:batch5pm/list.dart';
 import 'package:batch5pm/list_build.dart';
 import 'package:batch5pm/profile_screen.dart';
+import 'package:batch5pm/screen1.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +13,7 @@ void main() {
         primarySwatch: Colors.blue,
       ),
       // debugShowCheckedModeBanner: false,
-      home: const ProfileScreen(),
+      home: const Screen1(),
     ),
   );
 }
