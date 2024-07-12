@@ -113,67 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
               const SizedBox(height: 20),
 
-              // TextField(
-              //   // readOnly: true,
-              //   controller: _emailController,
-              //   cursorColor: Colors.red,
-              //   cursorWidth: 2,
-              //   cursorHeight: 15,
-              //   cursorRadius: const Radius.circular(35),
-              //   textDirection: TextDirection.ltr,
-              //   textAlign: TextAlign.start,
-              //   textInputAction: TextInputAction.next,
-              //   keyboardType: TextInputType.emailAddress,
-              //   onChanged: (String? value) {
-              //     print(value);
-              //   },
-              //   onTapOutside: (PointerDownEvent p) {
-              //     FocusManager.instance.primaryFocus?.unfocus();
-              //   },
-              //   onTap: () {
-              //     print("on tap called ");
-              //   },
-              //   // maxLength: 5,
-              //   // maxLines: 5,
-              //   decoration: InputDecoration(
-              //     border: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(35),
-              //       borderSide: const BorderSide(
-              //         color: Colors.black,
-              //         width: 2,
-              //       ),
-              //     ),
-              //     focusedBorder: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(35),
-              //       borderSide: const BorderSide(
-              //         color: Colors.red,
-              //         width: 2,
-              //       ),
-              //     ),
-              //     // hintText: "Enter your email",
-              //     // hintStyle:const TextStyle(
-              //     //   color: Colors.grey,
-              //     // ),
-              //     labelText: "Enter Email",
-              //     labelStyle: const TextStyle(
-              //       color: Colors.red,
-              //     ),
-              //     prefixIcon: const Icon(
-              //       Icons.email,
-              //       color: Colors.red,
-              //     ),
-              //     suffixIcon: const Icon(
-              //       Icons.search,
-              //       color: Colors.red,
-              //     ),
-              //     // enabled: false
-              //     floatingLabelAlignment: FloatingLabelAlignment.start,
-              //     floatingLabelBehavior: FloatingLabelBehavior.auto,
-              //   ),
-              // ),
-              //
-              // const SizedBox(height: 20),
-              TextField(
+              TextFormField(
                 // readOnly: true,
                 controller: _passwordController,
                 cursorColor: Colors.red,
@@ -182,6 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 cursorRadius: const Radius.circular(35),
                 textDirection: TextDirection.ltr,
                 textAlign: TextAlign.start,
+                textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: isObscureText,
                 // textInputAction: TextInputAction.next,
@@ -230,14 +171,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.red,
                           ),
                   ),
-                  // enabled: false
                   floatingLabelAlignment: FloatingLabelAlignment.start,
                   floatingLabelBehavior: FloatingLabelBehavior.auto,
                 ),
               ),
 
               const SizedBox(height: 20),
-              TextField(
+              TextFormField(
                 // readOnly: true,
                 controller: _confirmPassController,
                 cursorColor: Colors.red,
