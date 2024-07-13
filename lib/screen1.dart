@@ -33,86 +33,124 @@ class _Screen1State extends State<Screen1> {
           ),
         ],
       ),
-      body: ListView(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routeLoginScreen);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: ListView(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, routeLoginScreen);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(35),
+                ),
+                elevation: 5,
+                alignment: Alignment.centerLeft,
+                // fixedSize: Size(20, 35)
+                shadowColor: Colors.green,
+                side: const BorderSide(
+                  color: Colors.black,
+                  width: 1,
+                ),
               ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
+              child: const Text('Login Screen'),
             ),
-            child: const Text('Login Screen'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (BuildContext context) => const Screen2(),
-              //   ),
-              // );
+            ElevatedButton(
+              onPressed: () {
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (BuildContext context) => const Screen2(),
+                //   ),
+                // );
 
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (BuildContext context) => const Screen2(),
-              //   ),
-              // );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (BuildContext context) => const Screen2(),
+                //   ),
+                // );
 
-              // Navigator.pop(context);
+                // Navigator.pop(context);
 
-              Navigator.pushNamed(context, routeScreen2);
+                Navigator.pushNamed(context, routeScreen2);
 
-              // Navigator.pushReplacementNamed(context, routeScreen2);
+                // Navigator.pushReplacementNamed(context, routeScreen2);
 
-              // Navigator.pushNamedAndRemoveUntil(
-              //   context,
-              //   routeScreen2,
-              //   (Route r) {
-              //     return false;
-              //   },
-              // );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
+                // Navigator.pushNamedAndRemoveUntil(
+                //   context,
+                //   routeScreen2,
+                //   (Route r) {
+                //     return false;
+                //   },
+                // );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(35),
+                ),
+                elevation: 5,
+                alignment: Alignment.centerLeft,
+                // fixedSize: Size(20, 35)
+                shadowColor: Colors.green,
+                side: const BorderSide(
+                  color: Colors.black,
+                  width: 1,
+                ),
               ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
+              child: const Text('Go to Next Screen'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (BuildContext context) => const Screen2(),
+                //   ),
+                // );
+
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (BuildContext context) => const Screen2(),
+                //   ),
+                // );
+
+                // Navigator.pop(context);
+
+                Navigator.pushNamed(context, routeScreen2);
+
+                // Navigator.pushReplacementNamed(context, routeScreen2);
+
+                // Navigator.pushNamedAndRemoveUntil(
+                //   context,
+                //   routeScreen2,
+                //   (Route r) {
+                //     return false;
+                //   },
+                // );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(35),
+                ),
+                elevation: 5,
+                alignment: Alignment.centerLeft,
+                // fixedSize: Size(20, 35)
+                shadowColor: Colors.green,
+                side: const BorderSide(
+                  color: Colors.black,
+                  width: 1,
+                ),
               ),
+              child: const Text('Sales Screen'),
             ),
-            child: const Text('Go to Next Screen'),
-          ),
-          TextButton(
-            onPressed: () {},
-            onLongPress: () {
-              print('long press');
-            },
-            child: const Text(
-              'Click here',
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
