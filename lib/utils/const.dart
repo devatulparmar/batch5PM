@@ -6,3 +6,4 @@ const String localImage = "images/image1.jpg";
 const String routeScreen1 = "/";
 const String routeScreen2 = "/screen2";
 const String routeLoginScreen = "/LoginScreen";
+const String routeSalesScreen = "/SalesScreen";

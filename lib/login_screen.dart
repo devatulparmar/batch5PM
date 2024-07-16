@@ -8,40 +8,31 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late GlobalKey<FormState> _formKey;
   late TextEditingController _emailController;
   late TextEditingController _confirmPassController;
   late TextEditingController _passwordController;
-  bool isObscureText = true;
-  String s1 = '', s2 = '', s3 = '', s4 = '', s6 = '';
-
-  void _validate() {
-    if (_emailController.text.isEmpty && _passwordController.text.isEmpty) {
-      s1 = "enter an email or password";
-    } else if (_passwordController.text != _confirmPassController.text) {
-      s2 = 'both password must be same!';
-    } else if (_passwordController.text.length < 8) {
-      s3 = 'password must be grater then 8';
-    } else {
-      s4 = 'login success';
-    }
-    setState(() {});
-  }
+  late bool isObscureText;
+  late FocusNode myFocusNode;
 
   @override
   void initState() {
     super.initState();
+    isObscureText = true;
+    _formKey = GlobalKey<FormState>();
     _emailController = TextEditingController();
     _confirmPassController = TextEditingController();
     _passwordController = TextEditingController();
+    myFocusNode = FocusNode();
   }
 
   @override
   void dispose() {
-    super.dispose();
+    myFocusNode.dispose();
+    _passwordController.dispose();
     _emailController.dispose();
     _confirmPassController.dispose();
-    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -54,12 +45,12 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Form(
           key: _formKey,
-          autovalidateMode: AutovalidateMode.always,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: ListView(
             children: [
               TextFormField(
                 controller: _emailController,
-                cursorColor: Colors.red,
+                cursorColor: Colors.blue,
                 cursorWidth: 2,
                 cursorHeight: 15,
                 cursorRadius: const Radius.circular(35),
@@ -67,21 +58,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.start,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.emailAddress,
-                validator: (String? value) {
-                  if (value == null || value == '') {
-                    return "Enter an Email";
-                  } else {
-                    return '';
-                  }
-                },
-                onChanged: (String? value) {
-                  print(value);
-                },
+                // validator: (String? value) {
+                //   if (value == null || value == '') {
+                //     return "Enter an Email";
+                //   } else if (!RegExp(
+                //           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                //       .hasMatch(value)) {
+                //     return 'Enter a valid email';
+                //   } else {
+                //     return null;
+                //   }
+                // },
+                onChanged: (String? value) {},
                 onTapOutside: (PointerDownEvent p) {
                   FocusManager.instance.primaryFocus?.unfocus();
-                },
-                onTap: () {
-                  print("on tap called ");
                 },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -94,29 +84,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(35),
                     borderSide: const BorderSide(
-                      color: Colors.red,
+                      color: Colors.blue,
                       width: 2,
                     ),
                   ),
                   labelText: "Enter Email",
                   labelStyle: const TextStyle(
-                    color: Colors.red,
+                    color: Colors.blue,
                   ),
                   prefixIcon: const Icon(
                     Icons.email,
-                    color: Colors.red,
+                    color: Colors.blue,
                   ),
                   floatingLabelAlignment: FloatingLabelAlignment.start,
                   floatingLabelBehavior: FloatingLabelBehavior.auto,
                 ),
               ),
-
               const SizedBox(height: 20),
-
               TextFormField(
-                // readOnly: true,
                 controller: _passwordController,
-                cursorColor: Colors.red,
+                cursorColor: Colors.blue,
                 cursorWidth: 2,
                 cursorHeight: 15,
                 cursorRadius: const Radius.circular(35),
@@ -125,7 +112,31 @@ class _LoginScreenState extends State<LoginScreen> {
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: isObscureText,
-                // textInputAction: TextInputAction.next,
+                onTapOutside: (value) {
+                  if (myFocusNode.hasFocus) {
+                    myFocusNode.unfocus();
+                  }
+                },
+                onEditingComplete: () {
+                  myFocusNode.requestFocus();
+                },
+                // validator: (String? value) {
+                //   if (value == null || value == '') {
+                //     return "Enter a password";
+                //   } else if (!RegExp(r'^(?=.*?[A-Z])').hasMatch(value)) {
+                //     return "Should contain at least one upper case";
+                //   } else if (!RegExp(r'^(?=.*[a-z])').hasMatch(value)) {
+                //     return "Should contain at least one lower case";
+                //   } else if (!RegExp(r'^(?=.*?[0-9])').hasMatch(value)) {
+                //     return "Should contain at least one digit";
+                //   } else if (!RegExp(r'^(?=.*?[!@#\$&*~])').hasMatch(value)) {
+                //     return "Should contain at least one Special character";
+                //   } else if (!RegExp(r'^.{10,}').hasMatch(value)) {
+                //     return "Must be at least 10 characters in length ";
+                //   } else {
+                //     return null;
+                //   }
+                // },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(35),
@@ -137,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(35),
                     borderSide: const BorderSide(
-                      color: Colors.red,
+                      color: Colors.blue,
                       width: 2,
                     ),
                   ),
@@ -147,11 +158,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   // ),
                   labelText: "Enter Password",
                   labelStyle: const TextStyle(
-                    color: Colors.red,
+                    color: Colors.blue,
                   ),
                   prefixIcon: const Icon(
                     Icons.password,
-                    color: Colors.red,
+                    color: Colors.blue,
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -168,19 +179,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           )
                         : const Icon(
                             Icons.remove_red_eye,
-                            color: Colors.red,
+                            color: Colors.blue,
                           ),
                   ),
                   floatingLabelAlignment: FloatingLabelAlignment.start,
                   floatingLabelBehavior: FloatingLabelBehavior.auto,
                 ),
               ),
-
               const SizedBox(height: 20),
               TextFormField(
-                // readOnly: true,
+                focusNode: myFocusNode,
                 controller: _confirmPassController,
-                cursorColor: Colors.red,
+                cursorColor: Colors.blue,
                 cursorWidth: 2,
                 cursorHeight: 15,
                 cursorRadius: const Radius.circular(35),
@@ -188,7 +198,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.start,
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: isObscureText,
-                // textInputAction: TextInputAction.next,
+                // validator: (String? value) {
+                //   if (value == null || value == '') {
+                //     return "Enter a confirm password";
+                //   } else if (value != _passwordController.text) {
+                //     return "Both password must be same!";
+                //   } else {
+                //     return null;
+                //   }
+                // },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(35),
@@ -200,7 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(35),
                     borderSide: const BorderSide(
-                      color: Colors.red,
+                      color: Colors.blue,
                       width: 2,
                     ),
                   ),
@@ -210,11 +228,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   // ),
                   labelText: "Enter Confirm Password",
                   labelStyle: const TextStyle(
-                    color: Colors.red,
+                    color: Colors.blue,
                   ),
                   prefixIcon: const Icon(
                     Icons.password,
-                    color: Colors.red,
+                    color: Colors.blue,
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -231,7 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           )
                         : const Icon(
                             Icons.remove_red_eye,
-                            color: Colors.red,
+                            color: Colors.blue,
                           ),
                   ),
                   // enabled: false
@@ -239,32 +257,48 @@ class _LoginScreenState extends State<LoginScreen> {
                   floatingLabelBehavior: FloatingLabelBehavior.auto,
                 ),
               ),
-
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  if(_formKey.currentState!.validate()){
-                  /// API call
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text('Success.'),
+                      backgroundColor: Colors.green,
+                      duration: const Duration(
+                        seconds: 20,
+                      ),
+                      showCloseIcon: true,
+                      closeIconColor: Colors.red,
+                      action: SnackBarAction(
+                        onPressed: () {},
+                        label: 'Close',
+                        textColor: Colors.red,
+                      ),
+                      margin:const EdgeInsets.all(20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(35),
+                      ),
+                      behavior: SnackBarBehavior.floating,
+                      dismissDirection: DismissDirection.none,
+                      elevation: 0,
+                    ),
+                  );
+
+                  if (_formKey.currentState!.validate()) {
+                    /// API call
                   }
                 },
                 child: const Text('Login'),
               ),
-
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  setState(() {});
-                },
-                child: const Text('Show'),
-              ),
-              Text(_emailController.text),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
+                  myFocusNode.unfocus();
                   _emailController.clear();
                   _confirmPassController.clear();
                   _passwordController.clear();
                   setState(() {});
+                  _formKey.currentState!.reset();
                 },
                 child: const Text('Clear'),
               ),

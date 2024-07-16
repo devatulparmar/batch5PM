@@ -9,12 +9,12 @@ class MyAppRouter {
   static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => const SaleScreen());
+        return MaterialPageRoute(builder: (_) => const Screen1());
       case routeScreen2:
         return MaterialPageRoute(builder: (_) => const Screen2());
       case routeLoginScreen:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
-      case routeLoginScreen:
+      case routeSalesScreen:
         return MaterialPageRoute(builder: (_) => const SaleScreen());
       default:
         return MaterialPageRoute(
