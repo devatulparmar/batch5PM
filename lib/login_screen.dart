@@ -1,3 +1,4 @@
+import 'package:batch5pm/utils/my_snackbar.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -58,17 +59,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.start,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.emailAddress,
-                // validator: (String? value) {
-                //   if (value == null || value == '') {
-                //     return "Enter an Email";
-                //   } else if (!RegExp(
-                //           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                //       .hasMatch(value)) {
-                //     return 'Enter a valid email';
-                //   } else {
-                //     return null;
-                //   }
-                // },
+                validator: (String? value) => MySnackBar.emailValidator(value),
+                onChanged: (String? value) {},
+                onTapOutside: (PointerDownEvent p) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
+                decoration: MySnackBar.commonInputDecoration,
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: _emailController,
+                cursorColor: Colors.blue,
+                cursorWidth: 2,
+                cursorHeight: 15,
+                cursorRadius: const Radius.circular(35),
+                textDirection: TextDirection.ltr,
+                textAlign: TextAlign.start,
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.phone,
+                validator: (String? value) => MySnackBar.emailValidator(value),
                 onChanged: (String? value) {},
                 onTapOutside: (PointerDownEvent p) {
                   FocusManager.instance.primaryFocus?.unfocus();
@@ -88,12 +97,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 2,
                     ),
                   ),
-                  labelText: "Enter Email",
+                  labelText: "Enter Mobile",
                   labelStyle: const TextStyle(
                     color: Colors.blue,
                   ),
                   prefixIcon: const Icon(
-                    Icons.email,
+                    Icons.mobile_friendly,
                     color: Colors.blue,
                   ),
                   floatingLabelAlignment: FloatingLabelAlignment.start,
@@ -198,15 +207,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.start,
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: isObscureText,
-                // validator: (String? value) {
-                //   if (value == null || value == '') {
-                //     return "Enter a confirm password";
-                //   } else if (value != _passwordController.text) {
-                //     return "Both password must be same!";
-                //   } else {
-                //     return null;
-                //   }
-                // },
+                validator: (String? value) {
+                  if (value == null || value == '') {
+                    return "Enter a confirm password";
+                  } else if (value != _passwordController.text) {
+                    return "Both password must be same!";
+                  } else {
+                    return null;
+                  }
+                },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(35),
@@ -260,28 +269,10 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: const Text('Success.'),
-                      backgroundColor: Colors.green,
-                      duration: const Duration(
-                        seconds: 20,
-                      ),
-                      showCloseIcon: true,
-                      closeIconColor: Colors.red,
-                      action: SnackBarAction(
-                        onPressed: () {},
-                        label: 'Close',
-                        textColor: Colors.red,
-                      ),
-                      margin:const EdgeInsets.all(20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(35),
-                      ),
-                      behavior: SnackBarBehavior.floating,
-                      dismissDirection: DismissDirection.none,
-                      elevation: 0,
-                    ),
+                  MySnackBar.showMySnackBar(
+                    context: context,
+                    content: 'Success.',
+                    backgroundColor: Colors.green,
                   );
 
                   if (_formKey.currentState!.validate()) {
@@ -301,6 +292,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   _formKey.currentState!.reset();
                 },
                 child: const Text('Clear'),
+              ),
+              const SizedBox(height: 20),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Forgot Password',
+                  style: TextStyle(
+                    color: Colors.blue.shade900,
+                    decoration: TextDecoration.underline,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),
