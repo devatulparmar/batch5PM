@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MySnackBar {
+
  static showMySnackBar({
     required BuildContext context,
     required String content,
@@ -27,11 +28,12 @@ class MySnackBar {
  static emailValidator(value) {
    if (value == null || value == '') {
      return "Enter an Email";
-   } else if (!RegExp(
-       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-       .hasMatch(value)) {
+   }
+   else if (!RegExp(
+       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
      return 'Enter a valid email';
-   } else {
+   }
+   else {
      return null;
    }
  }

@@ -1,5 +1,6 @@
 import 'package:batch5pm/utils/my_snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late GlobalKey<FormState> _formKey;
   late TextEditingController _emailController;
+  late TextEditingController _phoneController;
   late TextEditingController _confirmPassController;
   late TextEditingController _passwordController;
   late bool isObscureText;
@@ -22,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
     isObscureText = true;
     _formKey = GlobalKey<FormState>();
     _emailController = TextEditingController();
+    _phoneController = TextEditingController();
     _confirmPassController = TextEditingController();
     _passwordController = TextEditingController();
     myFocusNode = FocusNode();
@@ -32,6 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
     myFocusNode.dispose();
     _passwordController.dispose();
     _emailController.dispose();
+    _phoneController.dispose();
     _confirmPassController.dispose();
     super.dispose();
   }
@@ -39,6 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Login Screen'),
       ),
@@ -67,22 +72,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: MySnackBar.commonInputDecoration,
               ),
               const SizedBox(height: 20),
-              TextFormField(
-                controller: _emailController,
-                cursorColor: Colors.blue,
-                cursorWidth: 2,
-                cursorHeight: 15,
-                cursorRadius: const Radius.circular(35),
-                textDirection: TextDirection.ltr,
-                textAlign: TextAlign.start,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.phone,
-                validator: (String? value) => MySnackBar.emailValidator(value),
-                onChanged: (String? value) {},
-                onTapOutside: (PointerDownEvent p) {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                },
-                decoration: InputDecoration(
+              IntlPhoneField(
+                controller: _phoneController,
+                decoration:InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(35),
                     borderSide: const BorderSide(
@@ -97,10 +89,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 2,
                     ),
                   ),
-                  labelText: "Enter Mobile",
-                  labelStyle: const TextStyle(
+                  // labelText: "Enter Mobile",
+                  hintStyle: const TextStyle(
                     color: Colors.blue,
                   ),
+                  labelText: "Enter Mobile",
                   prefixIcon: const Icon(
                     Icons.mobile_friendly,
                     color: Colors.blue,
@@ -108,6 +101,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   floatingLabelAlignment: FloatingLabelAlignment.start,
                   floatingLabelBehavior: FloatingLabelBehavior.auto,
                 ),
+                initialCountryCode: 'GB',
+                onChanged: (phone) {
+                  print(phone.completeNumber);
+                  print(phone.countryCode);
+                  print(phone.countryISOCode);
+                },
               ),
               const SizedBox(height: 20),
               TextFormField(
@@ -267,19 +266,28 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  MySnackBar.showMySnackBar(
-                    context: context,
-                    content: 'Success.',
-                    backgroundColor: Colors.green,
-                  );
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 40,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          MySnackBar.showMySnackBar(
+                            context: context,
+                            content: _phoneController.text,
+                            backgroundColor: Colors.green,
+                          );
 
-                  if (_formKey.currentState!.validate()) {
-                    /// API call
-                  }
-                },
-                child: const Text('Login'),
+                          if (_formKey.currentState!.validate()) {
+                            /// API call
+                          }
+                        },
+                        child: const Text('Login'),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 20),
               ElevatedButton(
@@ -294,16 +302,44 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: const Text('Clear'),
               ),
               const SizedBox(height: 20),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Forgot Password',
-                  style: TextStyle(
-                    color: Colors.blue.shade900,
-                    decoration: TextDecoration.underline,
-                    fontWeight: FontWeight.bold,
+              // TextButton(
+              //   onPressed: () {},
+              //   child: Text(
+              //     'Forgot Password',
+              //     style: TextStyle(
+              //       color: Colors.blue.shade900,
+              //       decoration: TextDecoration.underline,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: (){
+                      print("inkwell clicked");
+                    },
+                    child: Text(
+                      'Forgot Password',
+                      style: TextStyle(
+                        color: Colors.blue.shade900,
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                ),
+                ],
+              ),
+
+              GestureDetector(
+                onTap: (){
+                  print('Gesture click');
+                },
+                onLongPress: (){
+                  print('on long press');
+                },
+                child: Text('Hello'),
               ),
             ],
           ),
