@@ -12,97 +12,192 @@ class Screen1 extends StatefulWidget {
 class _Screen1State extends State<Screen1> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Screen 1'),
-        // leading: BackButton(
-        //   onPressed: () {},
-        //   color: Colors.red,
-        // ),
-        actions: [
-          CloseButton(
-            onPressed: () {},
-            color: Colors.red,
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.delete,
-              color: Colors.red,
-            ),
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: ListView(
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, routeLoginScreen);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Screen 1'),
+        ),
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              Container(
+                color: Colors.pink.shade100,
+                child: DrawerHeader(
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: const AssetImage(localImage),
+                        radius: 60,
+                        // maxRadius: 200,
+                        // minRadius: 50,
+                        backgroundColor: Colors.grey,
+                        foregroundImage: const NetworkImage(imgNetwork),
+                        onForegroundImageError:
+                            (Object obj, StackTrace? stackTrace) {
+                          // print('obj---> $obj');
+                          // print('stackTrace--> $stackTrace');
+                          // API call
+                        },
+                        onBackgroundImageError:
+                            (Object obj, StackTrace? stackTrace) {
+                          // API call
+                        },
+                      ),
+                      Text("Hello"),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, routeLoginScreen);
+                },
+                tileColor: Colors.blue,
+                style: ListTileStyle.drawer,
+                iconColor: Colors.white,
+                textColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(35),
                 ),
-                elevation: 5,
-                alignment: Alignment.centerLeft,
-                // fixedSize: Size(20, 35)
-                shadowColor: Colors.green,
-                side: const BorderSide(
-                  color: Colors.black,
-                  width: 1,
-                ),
+                selectedColor: Colors.white,
+                selectedTileColor: Colors.red,
+                selected: true,
+                leading: const Icon(Icons.home),
+                title: const Text('Home'),
               ),
-              child: const Text('Login Screen'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (BuildContext context) => const Screen2(),
-                //   ),
-                // );
-
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (BuildContext context) => const Screen2(),
-                //   ),
-                // );
-
-                // Navigator.pop(context);
-
-                Navigator.pushNamed(context, routeSalesScreen);
-
-                // Navigator.pushReplacementNamed(context, routeScreen2);
-
-                // Navigator.pushNamedAndRemoveUntil(
-                //   context,
-                //   routeScreen2,
-                //   (Route r) {
-                //     return false;
-                //   },
-                // );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
+              const SizedBox(
+                height: 10,
+              ),
+              ListTile(
+                onTap: () {},
+                tileColor: Colors.blue,
+                style: ListTileStyle.drawer,
+                iconColor: Colors.white,
+                textColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(35),
                 ),
-                elevation: 5,
-                alignment: Alignment.centerLeft,
-                // fixedSize: Size(20, 35)
-                shadowColor: Colors.green,
-                side: const BorderSide(
-                  color: Colors.black,
-                  width: 1,
-                ),
+                selectedColor: Colors.white,
+                selectedTileColor: Colors.red,
+                selected: false,
+                leading: const Icon(Icons.list),
+                title: const Text('Orders'),
               ),
-              child: const Text('Sales Screen'),
-            ),
-          ],
+              const SizedBox(
+                height: 10,
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, routeLoginScreen);
+                },
+                tileColor: Colors.blue,
+                style: ListTileStyle.drawer,
+                iconColor: Colors.white,
+                textColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(35),
+                ),
+                selectedColor: Colors.white,
+                selectedTileColor: Colors.red,
+                selected: true,
+                leading: const Icon(Icons.home),
+                title: const Text('Home'),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ListTile(
+                onTap: () {},
+                tileColor: Colors.blue,
+                style: ListTileStyle.drawer,
+                iconColor: Colors.white,
+                textColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(35),
+                ),
+                selectedColor: Colors.white,
+                selectedTileColor: Colors.red,
+                selected: false,
+                leading: const Icon(Icons.list),
+                title: const Text('Orders'),
+              ),
+            ],
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: ListView(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routeLoginScreen);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Login Screen'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: (BuildContext context) => const Screen2(),
+                  //   ),
+                  // );
+
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (BuildContext context) => const Screen2(),
+                  //   ),
+                  // );
+
+                  // Navigator.pop(context);
+
+                  Navigator.pushNamed(context, routeSalesScreen);
+
+                  // Navigator.pushReplacementNamed(context, routeScreen2);
+
+                  // Navigator.pushNamedAndRemoveUntil(
+                  //   context,
+                  //   routeScreen2,
+                  //   (Route r) {
+                  //     return false;
+                  //   },
+                  // );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Sales Screen'),
+              ),
+            ],
+          ),
         ),
       ),
     );
