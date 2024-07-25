@@ -11,6 +11,7 @@ void main() {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      debugShowCheckedModeBanner: false,
       onGenerateRoute: MyAppRouter.generateRoute,
       // routes: {
       //   routeScreen1: (BuildContext context) => const Screen1(),

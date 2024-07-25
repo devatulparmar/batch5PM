@@ -1,4 +1,5 @@
 import 'package:batch5pm/login_screen.dart';
+import 'package:batch5pm/register_screen.dart';
 import 'package:batch5pm/sales_screen.dart';
 import 'package:batch5pm/screen1.dart';
 import 'package:batch5pm/screen2.dart';
@@ -14,6 +15,8 @@ class MyAppRouter {
         return MaterialPageRoute(builder: (_) => const Screen2());
       case routeLoginScreen:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
+      case routeRegisterScreen:
+        return MaterialPageRoute(builder: (_) => const RegisterScreen());
       case routeSalesScreen:
         return MaterialPageRoute(builder: (_) => const SaleScreen());
       default:

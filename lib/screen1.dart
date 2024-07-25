@@ -128,7 +128,28 @@ class _Screen1State extends State<Screen1> {
         ),
       ),
       body: ListView(
+        padding:const EdgeInsets.all(10),
         children: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, routeRegisterScreen);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(35),
+              ),
+              elevation: 5,
+              alignment: Alignment.centerLeft,
+              // fixedSize: Size(20, 35)
+              shadowColor: Colors.green,
+              side: const BorderSide(
+                color: Colors.black,
+                width: 1,
+              ),
+            ),
+            child: const Text('Register Screen'),
+          ),
           ElevatedButton(
             onPressed: () {
               Navigator.pushNamed(context, routeLoginScreen);
