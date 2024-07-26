@@ -21,6 +21,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isPaintingCheckBoxChecked = false;
   bool isEnglishCheckBoxChecked = false;
   bool isGujaratiCheckBoxChecked = false;
+  String? dropDownValue;
+  String? dropDownValue2;
+  String? dropDownValue3;
+
+  final List<String> _list = [
+    'Vadodara',
+    'Ahmedabad',
+    'Surat',
+    'Anand',
+    'Junagadh',
+    'Rajkot',
+    'Amreli',
+  ];
+  final List<String> _list2 = [
+    'VD',
+    'AHM',
+    'ST',
+    'AD',
+    'JD',
+    'RT',
+    'AML',
+  ];
 
   @override
   void initState() {
@@ -268,6 +290,113 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ],
+            ),
+            const SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 1),
+                borderRadius: BorderRadius.circular(35),
+              ),
+              child: DropdownButton(
+                hint: const Text('Select State'),
+                value: dropDownValue2,
+                items: const [
+                  DropdownMenuItem(
+                    value: 'Gujarat',
+                    child: Text('Gujarat'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'MP',
+                    child: Text('MP'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Himachal',
+                    child: Text('Himachal'),
+                  ),
+                ],
+                isExpanded: true,
+                underline: Container(),
+                elevation: 2,
+                icon: const Icon(
+                  Icons.arrow_downward,
+                  size: 20,
+                ),
+                borderRadius: BorderRadius.circular(35),
+                onChanged: (dynamic d) {
+                  dropDownValue2 = d;
+                  dropDownValue = null;
+                  setState(() {});
+                },
+              ),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: DropdownButton(
+                  hint: const Text('Select City'),
+                  value: dropDownValue,
+                  selectedItemBuilder: (BuildContext context) {
+                    return _list2
+                        .map(
+                          (String item) => Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Text(item),
+                          ),
+                        )
+                        .toList();
+                  },
+                  items: _list
+                      .map((String element) => DropdownMenuItem(
+                            value: element,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Text(element),
+                            ),
+                          ),
+                  ).toList(),
+                  isExpanded: true,
+                  underline: Container(),
+                  elevation: 2,
+                  icon: const Icon(
+                    Icons.arrow_downward,
+                    size: 20,
+                  ),
+                  borderRadius: BorderRadius.circular(35),
+                  onChanged: (dynamic d) {
+                    dropDownValue = d;
+                    setState(() {});
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            DropdownMenu(
+              hintText: 'Select City',
+              menuStyle: MenuStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+              ),
+              dropdownMenuEntries: _list
+                  .map((String element) => DropdownMenuEntry(
+                        value: element,
+                        label: element,
+                      ))
+                  .toList(),
+              onSelected: (dynamic value) {
+                setState(() {
+                  dropDownValue3 = value;
+                });
+              },
             ),
           ],
         ),

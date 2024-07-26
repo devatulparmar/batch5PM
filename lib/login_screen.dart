@@ -128,23 +128,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 onEditingComplete: () {
                   myFocusNode.requestFocus();
                 },
-                // validator: (String? value) {
-                //   if (value == null || value == '') {
-                //     return "Enter a password";
-                //   } else if (!RegExp(r'^(?=.*?[A-Z])').hasMatch(value)) {
-                //     return "Should contain at least one upper case";
-                //   } else if (!RegExp(r'^(?=.*[a-z])').hasMatch(value)) {
-                //     return "Should contain at least one lower case";
-                //   } else if (!RegExp(r'^(?=.*?[0-9])').hasMatch(value)) {
-                //     return "Should contain at least one digit";
-                //   } else if (!RegExp(r'^(?=.*?[!@#\$&*~])').hasMatch(value)) {
-                //     return "Should contain at least one Special character";
-                //   } else if (!RegExp(r'^.{10,}').hasMatch(value)) {
-                //     return "Must be at least 10 characters in length ";
-                //   } else {
-                //     return null;
-                //   }
-                // },
+                validator: (String? value) {
+                  if (value == null || value == '') {
+                    return "Enter a password";
+                  } else if (!RegExp(r'^(?=.*?[A-Z])').hasMatch(value)) {
+                    return "Should contain at least one upper case";
+                  } else if (!RegExp(r'^(?=.*[a-z])').hasMatch(value)) {
+                    return "Should contain at least one lower case";
+                  } else if (!RegExp(r'^(?=.*?[0-9])').hasMatch(value)) {
+                    return "Should contain at least one digit";
+                  } else if (!RegExp(r'^(?=.*?[!@#\$&*~])').hasMatch(value)) {
+                    return "Should contain at least one Special character";
+                  } else if (!RegExp(r'^.{10,}').hasMatch(value)) {
+                    return "Must be at least 10 characters in length ";
+                  } else {
+                    return null;
+                  }
+                },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(35),
