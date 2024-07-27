@@ -11,6 +11,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   late TextEditingController _emailController;
   late TextEditingController _nameController;
+  late TextEditingController _ddmController;
   late GlobalKey<FormState> _formKey;
   String _groupValue = '';
   String _groupValue2 = '';
@@ -26,6 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? dropDownValue3;
 
   final List<String> _list = [
+    '---Select City---',
     'Vadodara',
     'Ahmedabad',
     'Surat',
@@ -49,6 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.initState();
     _emailController = TextEditingController();
     _nameController = TextEditingController();
+    _ddmController = TextEditingController();
     _formKey = GlobalKey();
   }
 
@@ -56,6 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void dispose() {
     _emailController.dispose();
     _nameController.dispose();
+    _ddmController.dispose();
     super.dispose();
   }
 
@@ -293,36 +297,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             const SizedBox(height: 20),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.black, width: 1),
-                borderRadius: BorderRadius.circular(35),
+                borderRadius: BorderRadius.circular(5),
               ),
               child: DropdownButton(
-                hint: const Text('Select State'),
+                hint: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Text('Select State'),
+                ),
                 value: dropDownValue2,
                 items: const [
                   DropdownMenuItem(
                     value: 'Gujarat',
-                    child: Text('Gujarat'),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Text('Gujarat'),
+                    ),
                   ),
                   DropdownMenuItem(
                     value: 'MP',
-                    child: Text('MP'),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Text('MP'),
+                    ),
                   ),
                   DropdownMenuItem(
                     value: 'Himachal',
-                    child: Text('Himachal'),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Text('Himachal'),
+                    ),
                   ),
                 ],
                 isExpanded: true,
                 underline: Container(),
                 elevation: 2,
-                icon: const Icon(
-                  Icons.arrow_downward,
-                  size: 20,
-                ),
-                borderRadius: BorderRadius.circular(35),
+                // icon: const Icon(
+                //   Icons.arrow_downward,
+                //   size: 20,
+                // ),
+                borderRadius: BorderRadius.circular(5),
                 onChanged: (dynamic d) {
                   dropDownValue2 = d;
                   dropDownValue = null;
@@ -333,52 +348,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
             const SizedBox(height: 20),
             Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 1),
-                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.grey, width: 1),
+                borderRadius: BorderRadius.circular(5),
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: DropdownButton(
-                  hint: const Text('Select City'),
-                  value: dropDownValue,
-                  selectedItemBuilder: (BuildContext context) {
-                    return _list2
-                        .map(
-                          (String item) => Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Text(item),
-                          ),
-                        )
-                        .toList();
-                  },
-                  items: _list
-                      .map((String element) => DropdownMenuItem(
-                            value: element,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(element),
-                            ),
-                          ),
-                  ).toList(),
-                  isExpanded: true,
-                  underline: Container(),
-                  elevation: 2,
-                  icon: const Icon(
-                    Icons.arrow_downward,
-                    size: 20,
-                  ),
-                  borderRadius: BorderRadius.circular(35),
-                  onChanged: (dynamic d) {
-                    dropDownValue = d;
-                    setState(() {});
-                  },
+              child: DropdownButton(
+                hint: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Text('Select City'),
                 ),
+                value: dropDownValue,
+                // selectedItemBuilder: (BuildContext context) {
+                //   return _list2
+                //       .map(
+                //         (String item) => Padding(
+                //           padding: const EdgeInsets.all(15),
+                //           child: Text(item),
+                //         ),
+                //       )
+                //       .toList();
+                // },
+                items: _list.map((String element) => DropdownMenuItem(
+                          value: element,
+                          child: Padding(
+                            padding:const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(element),
+                          ),
+                        )).toList(),
+                isExpanded: true,
+                underline: Container(),
+                elevation: 2,
+                // icon: const Icon(
+                //   Icons.arrow_downward,
+                //   size: 20,
+                // ),
+                borderRadius: BorderRadius.circular(5),
+                onChanged: (dynamic d) {
+                  dropDownValue = d;
+                  setState(() {});
+                },
               ),
             ),
             const SizedBox(height: 20),
             DropdownMenu(
+              controller: _ddmController,
               hintText: 'Select City',
+              width: MediaQuery.of(context).size.width - 20,
               menuStyle: MenuStyle(
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
@@ -386,18 +400,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ),
-              dropdownMenuEntries: _list
-                  .map((String element) => DropdownMenuEntry(
+              dropdownMenuEntries: _list.map((String element) => DropdownMenuEntry(
                         value: element,
                         label: element,
-                      ))
-                  .toList(),
+                      )).toList(),
               onSelected: (dynamic value) {
                 setState(() {
                   dropDownValue3 = value;
                 });
               },
             ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                dropDownValue = null;
+                dropDownValue2 = null;
+                _ddmController.clear();
+                setState(() {});
+              },
+              child: const Text('Reset'),
+            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
