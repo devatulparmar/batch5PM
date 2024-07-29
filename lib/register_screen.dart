@@ -1,5 +1,6 @@
 import 'package:batch5pm/utils/my_snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -13,6 +14,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late TextEditingController _nameController;
   late TextEditingController _ddmController;
   late GlobalKey<FormState> _formKey;
+  DateTime date = DateTime.now();
   String _groupValue = '';
   String _groupValue2 = '';
   int _groupValue3 = 0;
@@ -27,7 +29,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? dropDownValue3;
 
   final List<String> _list = [
-    '---Select City---',
     'Vadodara',
     'Ahmedabad',
     'Surat',
@@ -36,15 +37,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
     'Rajkot',
     'Amreli',
   ];
-  final List<String> _list2 = [
-    'VD',
-    'AHM',
-    'ST',
-    'AD',
-    'JD',
-    'RT',
-    'AML',
-  ];
+
+  Future selectDate() async {
+    try {
+      DateTime? selectedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(
+          DateTime.now().year,
+          DateTime.now().month,
+          DateTime.now().day + 15,
+        ),
+      );
+      date = selectedDate!;
+      setState(() {});
+    } catch (error) {
+      MySnackBar.showMySnackBar(
+        context: context,
+        content: error.toString(),
+        backgroundColor: Colors.red,
+      );
+    } finally {
+      /// DB close
+    }
+  }
 
   @override
   void initState() {
@@ -81,7 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               cursorWidth: 2,
               cursorHeight: 15,
               cursorRadius: const Radius.circular(35),
-              textDirection: TextDirection.ltr,
+              // textDirection: TextDirection.ltr,
               textAlign: TextAlign.start,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.text,
@@ -124,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               cursorWidth: 2,
               cursorHeight: 15,
               cursorRadius: const Radius.circular(35),
-              textDirection: TextDirection.ltr,
+              // textDirection: TextDirection.LTR,
               textAlign: TextAlign.start,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.emailAddress,
@@ -367,13 +384,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 //       )
                 //       .toList();
                 // },
-                items: _list.map((String element) => DropdownMenuItem(
+                items: _list
+                    .map((String element) => DropdownMenuItem(
                           value: element,
                           child: Padding(
-                            padding:const EdgeInsets.symmetric(horizontal: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Text(element),
                           ),
-                        )).toList(),
+                        ))
+                    .toList(),
                 isExpanded: true,
                 underline: Container(),
                 elevation: 2,
@@ -400,15 +419,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ),
-              dropdownMenuEntries: _list.map((String element) => DropdownMenuEntry(
+              dropdownMenuEntries: _list
+                  .map((String element) => DropdownMenuEntry(
                         value: element,
                         label: element,
-                      )).toList(),
+                      ))
+                  .toList(),
               onSelected: (dynamic value) {
                 setState(() {
                   dropDownValue3 = value;
                 });
               },
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Text(
+                    'Date of Birth is : ${DateFormat("dd-MM-yyyy").format(date)}'),
+                IconButton(
+                  onPressed: () {
+                    selectDate();
+                  },
+                  icon: const Icon(
+                    Icons.calendar_month,
+                    color: Colors.blue,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Text('YEAR_ABBR_MONTH : ${DateFormat.yMMM().format(date)}'),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Text(
+                    'YEAR_ABBR_MONTH : ${DateFormat.yMMMMd('en_US').format(date)}'),
+              ],
             ),
             const SizedBox(height: 20),
             ElevatedButton(
