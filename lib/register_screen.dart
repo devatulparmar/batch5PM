@@ -1,6 +1,7 @@
+import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/my_snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -49,6 +50,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
           DateTime.now().month,
           DateTime.now().day + 15,
         ),
+        initialDatePickerMode: DatePickerMode.day,
+        anchorPoint: const Offset(200, 100),
+        helpText: 'Help Text',
+        confirmText: 'Confirm',
+        cancelText: 'Cancel Text',
+        currentDate: DateTime(2024, 07, 31),
+        errorFormatText: 'errorFormatText',
+        fieldHintText: 'fieldHintText',
+        fieldLabelText: 'fieldLabelText',
+        initialEntryMode: DatePickerEntryMode.calendar,
+        keyboardType: TextInputType.datetime,
+        errorInvalidText: 'errorInvalidText',
+        textDirection: TextDirection.ltr,
+        selectableDayPredicate: (DateTime? d) {
+          print('------> $d');
+          return true;
+        },
+        useRootNavigator: true,
+        routeSettings: const RouteSettings(name: routeLoginScreen),
+        builder: (BuildContext context, Widget? widget) {
+          return Theme(
+            data: ThemeData(
+              primarySwatch: Colors.red,
+            ),
+            child: widget!,
+          );
+        },
       );
       date = selectedDate!;
       setState(() {});
@@ -98,7 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               cursorWidth: 2,
               cursorHeight: 15,
               cursorRadius: const Radius.circular(35),
-              // textDirection: TextDirection.ltr,
+              textDirection: TextDirection.ltr,
               textAlign: TextAlign.start,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.text,
@@ -141,7 +169,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               cursorWidth: 2,
               cursorHeight: 15,
               cursorRadius: const Radius.circular(35),
-              // textDirection: TextDirection.LTR,
+              textDirection: TextDirection.ltr,
               textAlign: TextAlign.start,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.emailAddress,
@@ -459,6 +487,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Text(
                     'YEAR_ABBR_MONTH : ${DateFormat.yMMMMd('en_US').format(date)}'),
               ],
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  routeRegisterDetailsScreen,
+                  arguments: {
+                    'name': _nameController.text,
+                    'email': _emailController.text,
+                  },
+                );
+              },
+              child: const Text('Submit'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
