@@ -1,3 +1,4 @@
+import 'package:batch5pm/utils/const.dart';
 import 'package:flutter/material.dart';
 
 class RegisterDetailsScreen extends StatelessWidget {
@@ -36,43 +37,48 @@ class RegisterDetailsScreen extends StatelessWidget {
               Text('Email :${arguments['email']}'),
             ],
           ),
-          // const SizedBox(height: 10),
-          // Row(
-          //   children: [
-          //     Text('Gender :${arguments['gender']}'),
-          //   ],
-          // ),
-          // const SizedBox(height: 10),
-          // Row(
-          //   children: [
-          //     Text('Marital Status :${arguments['status']}'),
-          //   ],
-          // ),
-          // const SizedBox(height: 10),
-          // Row(
-          //   children: [
-          //     Text('Hobbies :${arguments['hobbies']}'),
-          //   ],
-          // ),
-          // const SizedBox(height: 10),
-          // Row(
-          //   children: [
-          //     Text('State :${arguments['state']}'),
-          //   ],
-          // ),
-          // const SizedBox(height: 10),
-          // Row(
-          //   children: [
-          //     Text('City :${arguments['city']}'),
-          //   ],
-          // ),
-          // const SizedBox(height: 10),
-          // Row(
-          //   children: [
-          //     Text('Date of Birth :${arguments['dob']}'),
-          //   ],
-          // ),
-          // const SizedBox(height: 10),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Text('Gender :${arguments['gender']}'),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Text('Marital Status :${arguments['status']}'),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Column(
+            children: List.generate(
+              (arguments['hobbies'] as List<String>).length,
+              (index) => Row(
+                children: [
+                  Text('Hobbies :${arguments['hobbies'][index]}'),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Text('State :${arguments['state']}'),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Text('City :${arguments['city']}'),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Text('Date of Birth :${arguments['dob']}'),
+            ],
+          ),
+          const SizedBox(height: 10),
         ],
       ),
     );

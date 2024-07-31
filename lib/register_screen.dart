@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/my_snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 
 class RegisterScreen extends StatefulWidget {
@@ -25,9 +28,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isPaintingCheckBoxChecked = false;
   bool isEnglishCheckBoxChecked = false;
   bool isGujaratiCheckBoxChecked = false;
-  String? dropDownValue;
-  String? dropDownValue2;
+  String? cityDDLValue;
+  String? stateDDLValue;
   String? dropDownValue3;
+  List<String> hobbiesList = [];
+  final ImagePicker picker = ImagePicker();
+  XFile? selectedImage;
+  List<XFile>? multiSelectedImages;
 
   final List<String> _list = [
     'Vadodara',
@@ -91,6 +98,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
+  Future _selectImageFromCamera() async {
+    selectedImage = await picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 100,
+      preferredCameraDevice: CameraDevice.rear,
+    );
+    setState(() {});
+  }
+
+  Future _selectImageFromGallery() async {
+    selectedImage = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 100,
+    );
+    setState(() {});
+  }
+
+  Future _selectMultipleImageFromGallery() async {
+    multiSelectedImages = await picker.pickMultiImage(imageQuality: 100);
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -120,6 +149,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: ListView(
           padding: const EdgeInsets.all(10),
           children: [
+            const SizedBox(height: 10),
+            selectedImage != null
+                ? CircleAvatar(
+                    radius: 100,
+                    backgroundImage: FileImage(File(selectedImage!.path)),
+                  )
+                : const CircleAvatar(
+                    radius: 100,
+                    backgroundImage: AssetImage(localImage),
+                  ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                _selectImageFromCamera();
+              },
+              child: const Text('Select Image From Camera'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                _selectMultipleImageFromGallery();
+              },
+              child: const Text('Select Multiple Image From Gallery'),
+            ),
+            const SizedBox(height: 10),
+            multiSelectedImages == null
+                ? Container()
+                : ListView.builder(
+                    itemCount: multiSelectedImages!.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      return CircleAvatar(
+                        radius: 100,
+                        backgroundImage: FileImage(
+                          File(multiSelectedImages![index].path),
+                        ),
+                      );
+                    },
+                  ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                _selectImageFromGallery();
+              },
+              child: const Text('Select Image From Gallery'),
+            ),
+            const SizedBox(height: 10),
             TextFormField(
               controller: _nameController,
               cursorColor: Colors.blue,
@@ -287,6 +364,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     setState(() {
                       isCheckBoxChecked = chk!;
                     });
+                    if (isCheckBoxChecked) {
+                      hobbiesList.add('Reading');
+                    } else {
+                      hobbiesList.remove('Reading');
+                    }
                   },
                 ),
                 const Text('Reading'),
@@ -296,6 +378,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     setState(() {
                       isPaintingCheckBoxChecked = chk!;
                     });
+                    if (isPaintingCheckBoxChecked) {
+                      hobbiesList.add('Painting');
+                    } else {
+                      hobbiesList.remove('Painting');
+                    }
                   },
                 ),
                 const Text('Painting'),
@@ -351,7 +438,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text('Select State'),
                 ),
-                value: dropDownValue2,
+                value: stateDDLValue,
                 items: const [
                   DropdownMenuItem(
                     value: 'Gujarat',
@@ -384,8 +471,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 // ),
                 borderRadius: BorderRadius.circular(5),
                 onChanged: (dynamic d) {
-                  dropDownValue2 = d;
-                  dropDownValue = null;
+                  stateDDLValue = d;
+                  cityDDLValue = null;
                   setState(() {});
                 },
               ),
@@ -401,7 +488,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text('Select City'),
                 ),
-                value: dropDownValue,
+                value: cityDDLValue,
                 // selectedItemBuilder: (BuildContext context) {
                 //   return _list2
                 //       .map(
@@ -430,7 +517,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 // ),
                 borderRadius: BorderRadius.circular(5),
                 onChanged: (dynamic d) {
-                  dropDownValue = d;
+                  cityDDLValue = d;
                   setState(() {});
                 },
               ),
@@ -497,6 +584,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   arguments: {
                     'name': _nameController.text,
                     'email': _emailController.text,
+                    'gender': _groupValue,
+                    'status': _groupValue2,
+                    'hobbies': hobbiesList,
+                    'state': stateDDLValue,
+                    'city': cityDDLValue,
+                    'dob': DateFormat.yMd().format(date).toString(),
                   },
                 );
               },
@@ -505,8 +598,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                dropDownValue = null;
-                dropDownValue2 = null;
+                cityDDLValue = null;
+                stateDDLValue = null;
                 _ddmController.clear();
                 setState(() {});
               },
