@@ -4,6 +4,7 @@ import 'package:batch5pm/register_screen.dart';
 import 'package:batch5pm/sales_screen.dart';
 import 'package:batch5pm/screen1.dart';
 import 'package:batch5pm/screen2.dart';
+import 'package:batch5pm/test2.dart';
 import 'package:batch5pm/utils/const.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,8 @@ class MyAppRouter {
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
       case routeSalesScreen:
         return MaterialPageRoute(builder: (_) => const SaleScreen());
+        case routeFoodScreen:
+        return MaterialPageRoute(builder: (_) => const FoodScreen());
       case routeRegisterDetailsScreen:
         return MaterialPageRoute(
             builder: (_) => RegisterDetailsScreen(

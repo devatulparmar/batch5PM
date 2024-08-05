@@ -48,9 +48,7 @@ class _Screen1State extends State<Screen1> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             ListTile(
               onTap: () {
                 Navigator.pushNamed(context, routeLoginScreen);
@@ -68,9 +66,7 @@ class _Screen1State extends State<Screen1> {
               leading: const Icon(Icons.home),
               title: const Text('Home'),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             ListTile(
               onTap: () {},
               tileColor: Colors.blue,
@@ -86,9 +82,7 @@ class _Screen1State extends State<Screen1> {
               leading: const Icon(Icons.list),
               title: const Text('Orders'),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             ListTile(
               onTap: () {
                 Navigator.pushNamed(context, routeLoginScreen);
@@ -106,9 +100,7 @@ class _Screen1State extends State<Screen1> {
               leading: const Icon(Icons.home),
               title: const Text('Home'),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             ListTile(
               onTap: () {},
               tileColor: Colors.blue,
@@ -128,7 +120,7 @@ class _Screen1State extends State<Screen1> {
         ),
       ),
       body: ListView(
-        padding:const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         children: [
           ElevatedButton(
             onPressed: () {
@@ -214,6 +206,26 @@ class _Screen1State extends State<Screen1> {
               ),
             ),
             child: const Text('Sales Screen'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, routeFoodScreen);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(35),
+              ),
+              elevation: 5,
+              alignment: Alignment.centerLeft,
+              // fixedSize: Size(20, 35)
+              shadowColor: Colors.green,
+              side: const BorderSide(
+                color: Colors.black,
+                width: 1,
+              ),
+            ),
+            child: const Text('Food Screen'),
           ),
         ],
       ),
