@@ -4,7 +4,7 @@ import 'package:batch5pm/register_screen.dart';
 import 'package:batch5pm/sales_screen.dart';
 import 'package:batch5pm/screen1.dart';
 import 'package:batch5pm/screen2.dart';
-import 'package:batch5pm/test2.dart';
+import 'package:batch5pm/food_screen.dart';
 import 'package:batch5pm/utils/const.dart';
 import 'package:flutter/material.dart';
 
