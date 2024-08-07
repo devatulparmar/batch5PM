@@ -16,7 +16,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   late TextEditingController _emailController;
   late TextEditingController _nameController;
-  late TextEditingController _ddmController;
+  final TextEditingController _ddmController = TextEditingController();
   late GlobalKey<FormState> _formKey;
   DateTime date = DateTime.now();
   String _groupValue = '';
@@ -125,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.initState();
     _emailController = TextEditingController();
     _nameController = TextEditingController();
-    _ddmController = TextEditingController();
+    // _ddmController = TextEditingController();
     _formKey = GlobalKey();
   }
 
@@ -134,6 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
     _emailController.dispose();
     _nameController.dispose();
+    _ddmController.dispose();
   }
 
   @override
