@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/my_snackbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart' hide TextDirection;
@@ -19,6 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _ddmController = TextEditingController();
   late GlobalKey<FormState> _formKey;
   DateTime date = DateTime.now();
+  TimeOfDay timeOfDay = TimeOfDay.now();
   String _groupValue = '';
   String _groupValue2 = '';
   int _groupValue3 = 0;
@@ -86,6 +88,45 @@ class _RegisterScreenState extends State<RegisterScreen> {
         },
       );
       date = selectedDate!;
+      setState(() {});
+    } catch (error) {
+      MySnackBar.showMySnackBar(
+        context: context,
+        content: error.toString(),
+        backgroundColor: Colors.red,
+      );
+    } finally {
+      /// DB close
+    }
+  }
+
+  Future selectTime() async {
+    try {
+      TimeOfDay? selectedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+        anchorPoint: const Offset(0, 0),
+        cancelText: 'Close',
+        confirmText: 'Select',
+        helpText: 'help text',
+        errorInvalidText: 'error invalid text',
+        hourLabelText: 'Select Hours',
+        minuteLabelText: 'Select Minutes',
+        initialEntryMode: TimePickerEntryMode.dial,
+        useRootNavigator: true,
+        onEntryModeChanged: (value) {
+          print('on Entry Mode Changes $value');
+        },
+        builder: (BuildContext context, Widget? widget) {
+          return Theme(
+            data: ThemeData(
+              primarySwatch: Colors.red,
+            ),
+            child: widget!,
+          );
+        },
+      );
+      timeOfDay = selectedTime ?? TimeOfDay.now();
       setState(() {});
     } catch (error) {
       MySnackBar.showMySnackBar(
@@ -523,29 +564,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            DropdownMenu(
-              controller: _ddmController,
-              hintText: 'Select City',
-              width: MediaQuery.of(context).size.width - 20,
-              menuStyle: MenuStyle(
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-              ),
-              dropdownMenuEntries: _list
-                  .map((String element) => DropdownMenuEntry(
-                        value: element,
-                        label: element,
-                      ))
-                  .toList(),
-              onSelected: (dynamic value) {
-                setState(() {
-                  dropDownValue3 = value;
-                });
-              },
-            ),
+            // DropdownMenu(
+            //   controller: _ddmController,
+            //   hintText: 'Select City',
+            //   width: MediaQuery.of(context).size.width - 20,
+            //   menuStyle: MenuStyle(
+            //     shape: MaterialStateProperty.all(
+            //       RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(15),
+            //       ),
+            //     ),
+            //   ),
+            //   dropdownMenuEntries: _list
+            //       .map((String element) => DropdownMenuEntry(
+            //             value: element,
+            //             label: element,
+            //           ))
+            //       .toList(),
+            //   onSelected: (dynamic value) {
+            //     setState(() {
+            //       dropDownValue3 = value;
+            //     });
+            //   },
+            // ),
             const SizedBox(height: 20),
             Row(
               children: [
@@ -557,6 +598,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                   icon: const Icon(
                     Icons.calendar_month,
+                    color: Colors.blue,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Text('Date of Birth is : ${timeOfDay.format(context)}'),
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      useSafeArea: true,
+                      builder: (_) {
+                        return Dialog(
+                          insetPadding: EdgeInsets.zero,
+                          child: SizedBox(
+                            height: 150,
+                            width: 200,
+                            child: CupertinoTimerPicker(
+                              mode: CupertinoTimerPickerMode.hm,
+                              initialTimerDuration: Duration.zero,
+                              backgroundColor: Colors.orange,
+                              // This is called when the user changes the timer's
+                              // duration.
+                              onTimerDurationChanged: (Duration newDuration) {
+                                // print('${newDuration.inHours}:${newDuration.inMinutes}');
+                                var s = newDuration.toString().split(':');
+                                var time = TimeOfDay(hour: int.parse(s[0]), minute:  int.parse(s[1]));
+                                print(time.format(context));
+                                // setState(() => duration = newDuration);
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                    // selectTime();
+                  },
+                  icon: const Icon(
+                    Icons.watch_later,
                     color: Colors.blue,
                   ),
                 ),
