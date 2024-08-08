@@ -73,7 +73,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         errorInvalidText: 'errorInvalidText',
         textDirection: TextDirection.ltr,
         selectableDayPredicate: (DateTime? d) {
-          print('------> $d');
           return true;
         },
         useRootNavigator: true,
@@ -114,9 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         minuteLabelText: 'Select Minutes',
         initialEntryMode: TimePickerEntryMode.dial,
         useRootNavigator: true,
-        onEntryModeChanged: (value) {
-          print('on Entry Mode Changes $value');
-        },
+        onEntryModeChanged: (value) {},
         builder: (BuildContext context, Widget? widget) {
           return Theme(
             data: ThemeData(
@@ -612,28 +609,108 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     showDialog(
                       context: context,
                       useSafeArea: true,
+                      barrierColor: Colors.amber,
+                      // barrierDismissible: false,
+                      barrierLabel: 'barrierLabel',
                       builder: (_) {
-                        return Dialog(
-                          insetPadding: EdgeInsets.zero,
-                          child: SizedBox(
-                            height: 150,
-                            width: 200,
-                            child: CupertinoTimerPicker(
-                              mode: CupertinoTimerPickerMode.hm,
-                              initialTimerDuration: Duration.zero,
-                              backgroundColor: Colors.orange,
-                              // This is called when the user changes the timer's
-                              // duration.
-                              onTimerDurationChanged: (Duration newDuration) {
-                                // print('${newDuration.inHours}:${newDuration.inMinutes}');
-                                var s = newDuration.toString().split(':');
-                                var time = TimeOfDay(hour: int.parse(s[0]), minute:  int.parse(s[1]));
-                                print(time.format(context));
-                                // setState(() => duration = newDuration);
+                        ///SimpleDialog
+                        // return SimpleDialog(
+                        //   title: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //     children: [
+                        //       const Text('Title text'),
+                        //       IconButton(
+                        //         onPressed: () {
+                        //           Navigator.pop(context);
+                        //         },
+                        //         icon: const Icon(
+                        //           Icons.close,
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        //   children: [
+                        //     const Text('This is SimpleDialog'),
+                        //     const Text('Hello'),
+                        //   ],
+                        // );
+
+                        /// AboutDialog
+                        // return const AboutDialog(
+                        //   applicationIcon: Icon(
+                        //     Icons.settings,
+                        //   ),
+                        //   applicationName: 'Batch 5 PM',
+                        //   applicationVersion: '1.0.0',
+                        //   applicationLegalese: 'applicationLegalese',
+                        //   children: [
+                        //     Text('This is about dialog'),
+                        //   ],
+                        // );
+
+                        /// AlertDialog
+                        return AlertDialog(
+                          title: const Text('Are you sure want to logout?'),
+                          content: const Text('''
+                          You need to enable Developer Mode and set a flag on your device, so you can't yet expect predictive back to work on most users' Android devices. If you want to try it out on your own device though, make sure it's running API 33 or higher, and then in Settings => System => Developer options, make sure the switch is enabled next to Predictive back animations.
+                          '''),
+                          // buttonPadding: const EdgeInsets.symmetric(horizontal: 35),
+                          // actionsPadding: const EdgeInsets.symmetric(horizontal: 35),
+                          // actionsOverflowButtonSpacing: 60,
+                          actionsAlignment: MainAxisAlignment.spaceBetween,
+                          // icon: IconButton(
+                          //   onPressed: () {
+                          //     Navigator.pop(context);
+                          //   },
+                          //   icon: const Icon(Icons.close),
+                          //   visualDensity: VisualDensity.comfortable,
+                          // ),
+                          scrollable: true,
+                          semanticLabel: 'Semantic Label',
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
                               },
+                              child: const Text('No'),
                             ),
-                          ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Yes'),
+                            ),
+                          ],
                         );
+
+                        ///Dialog
+                        // return Dialog(
+                        //   insetPadding: EdgeInsets.zero,
+                        //   insetAnimationCurve: Curves.linear,
+                        //   surfaceTintColor: Colors.pink,
+                        //   backgroundColor: Colors.yellow,
+                        //   clipBehavior: Clip.antiAliasWithSaveLayer,
+                        //   insetAnimationDuration: const Duration(seconds: 20),
+                        //   child: SizedBox(
+                        //     height: 150,
+                        //     width: 200,
+                        //     child: CupertinoTimerPicker(
+                        //       mode: CupertinoTimerPickerMode.hm,
+                        //       initialTimerDuration: Duration.zero,
+                        //       // backgroundColor: Colors.orange,
+                        //       // This is called when the user changes the timer's
+                        //       // duration.
+                        //       onTimerDurationChanged: (Duration newDuration) {
+                        //         // print('${newDuration.inHours}:${newDuration.inMinutes}');
+                        //         var s = newDuration.toString().split(':');
+                        //         var time = TimeOfDay(
+                        //             hour: int.parse(s[0]),
+                        //             minute: int.parse(s[1]));
+                        //         // setState(() => duration = newDuration);
+                        //       },
+                        //     ),
+                        //   ),
+                        // );
                       },
                     );
                     // selectTime();
