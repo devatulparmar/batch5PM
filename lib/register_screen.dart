@@ -158,6 +158,317 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() {});
   }
 
+  Future _showCupertinoAlertDialog() async {
+    return showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: const Text('This is title'),
+          content: const Text('This is content.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Close'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future _showSimpleDialog() async {
+    return showDialog(
+      context: context,
+      useSafeArea: true,
+      barrierColor: Colors.amber,
+      // barrierDismissible: false,
+      barrierLabel: 'barrierLabel',
+      builder: (_) {
+        return SimpleDialog(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Title text'),
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.close,
+                ),
+              ),
+            ],
+          ),
+          children: const [
+            Text('This is SimpleDialog'),
+            Text('Hello'),
+          ],
+        );
+      },
+    );
+  }
+
+  Future _showAboutDialog() async {
+    return showDialog(
+      context: context,
+      useSafeArea: true,
+      barrierColor: Colors.amber,
+      // barrierDismissible: false,
+      barrierLabel: 'barrierLabel',
+      builder: (_) {
+        return AlertDialog(
+          title: const Text('Are you sure want to logout?'),
+          content: const Text('''
+                          You need to enable Developer Mode and set a flag on your device, so you can't yet expect predictive back to work on most users' Android devices. If you want to try it out on your own device though, make sure it's running API 33 or higher, and then in Settings => System => Developer options, make sure the switch is enabled next to Predictive back animations.
+                          '''),
+          // buttonPadding: const EdgeInsets.symmetric(horizontal: 35),
+          // actionsPadding: const EdgeInsets.symmetric(horizontal: 35),
+          // actionsOverflowButtonSpacing: 60,
+          actionsAlignment: MainAxisAlignment.spaceBetween,
+          // icon: IconButton(
+          //   onPressed: () {
+          //     Navigator.pop(context);
+          //   },
+          //   icon: const Icon(Icons.close),
+          //   visualDensity: VisualDensity.comfortable,
+          // ),
+          scrollable: true,
+          semanticLabel: 'Semantic Label',
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future _showAlertDialog() async {
+    return showDialog(
+      context: context,
+      useSafeArea: true,
+      barrierColor: Colors.amber,
+      // barrierDismissible: false,
+      barrierLabel: 'barrierLabel',
+      builder: (_) {
+        return AlertDialog(
+          title: const Text('Are you sure want to logout?'),
+          content: const Text('''
+                          You need to enable Developer Mode and set a flag on your device, so you can't yet expect predictive back to work on most users' Android devices. If you want to try it out on your own device though, make sure it's running API 33 or higher, and then in Settings => System => Developer options, make sure the switch is enabled next to Predictive back animations.
+                          '''),
+          // buttonPadding: const EdgeInsets.symmetric(horizontal: 35),
+          // actionsPadding: const EdgeInsets.symmetric(horizontal: 35),
+          // actionsOverflowButtonSpacing: 60,
+          actionsAlignment: MainAxisAlignment.spaceBetween,
+          // icon: IconButton(
+          //   onPressed: () {
+          //     Navigator.pop(context);
+          //   },
+          //   icon: const Icon(Icons.close),
+          //   visualDensity: VisualDensity.comfortable,
+          // ),
+          scrollable: true,
+          semanticLabel: 'Semantic Label',
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future _showDialog() async {
+    return await showDialog(
+      context: context,
+      useSafeArea: true,
+      barrierColor: Colors.amber,
+      barrierLabel: 'barrierLabel',
+      builder: (_) {
+        return Dialog(
+          insetPadding: EdgeInsets.zero,
+          insetAnimationCurve: Curves.linear,
+          surfaceTintColor: Colors.pink,
+          backgroundColor: Colors.yellow,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          insetAnimationDuration: const Duration(seconds: 20),
+          child: SizedBox(
+            height: 150,
+            width: 200,
+            child: CupertinoTimerPicker(
+              mode: CupertinoTimerPickerMode.hm,
+              initialTimerDuration: Duration.zero,
+              // backgroundColor: Colors.orange,
+              // This is called when the user changes the timer's
+              // duration.
+              onTimerDurationChanged: (Duration newDuration) {
+                // print('${newDuration.inHours}:${newDuration.inMinutes}');
+                var s = newDuration.toString().split(':');
+                var time =
+                    TimeOfDay(hour: int.parse(s[0]), minute: int.parse(s[1]));
+                // setState(() => duration = newDuration);
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future _showBottomSheet() async {
+    showModalBottomSheet(
+      context: context,
+      enableDrag: false,
+      // isDismissible: false,
+      useSafeArea: true,
+      // isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(35),
+          topLeft: Radius.circular(35),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return CupertinoTimerPicker(onTimerDurationChanged: (value) {
+          print(value);
+        });
+        return CupertinoDatePicker(
+          initialDateTime: DateTime.now(),
+          onDateTimeChanged: (DateTime value) {
+            print(value);
+          },
+        );
+        return Container(
+          decoration: const BoxDecoration(
+            color: Colors.amber,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(35),
+              topLeft: Radius.circular(35),
+            ),
+          ),
+          child: Column(
+            // mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.close),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future _selectImage() async {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(35),
+          topLeft: Radius.circular(35),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(35),
+              topLeft: Radius.circular(35),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Divider(
+                      height: 3,
+                      thickness: 3,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      _selectImageFromGallery();
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.image),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      _selectImageFromCamera();
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.camera),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      _selectMultipleImageFromGallery();
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.select_all),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -189,28 +500,58 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             const SizedBox(height: 10),
             selectedImage != null
-                ? CircleAvatar(
-                    radius: 100,
-                    backgroundImage: FileImage(File(selectedImage!.path)),
+                ? Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: 100,
+                        backgroundImage: FileImage(File(selectedImage!.path)),
+                      ),
+                      Positioned(
+                        right: 110,
+                        bottom: 30,
+                        child: SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              _selectImage();
+                            },
+                            child: const Icon(
+                              Icons.edit,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   )
-                : const CircleAvatar(
-                    radius: 100,
-                    backgroundImage: AssetImage(localImage),
+                : Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      const CircleAvatar(
+                        radius: 100,
+                        backgroundImage: AssetImage(localImage),
+                      ),
+                      Positioned(
+                        right: 110,
+                        bottom: 30,
+                        child: SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              _selectImage();
+                            },
+                            child: const Icon(
+                              Icons.edit,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                _selectImageFromCamera();
-              },
-              child: const Text('Select Image From Camera'),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                _selectMultipleImageFromGallery();
-              },
-              child: const Text('Select Multiple Image From Gallery'),
-            ),
             const SizedBox(height: 10),
             multiSelectedImages == null
                 ? Container()
@@ -227,13 +568,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       );
                     },
                   ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                _selectImageFromGallery();
-              },
-              child: const Text('Select Image From Gallery'),
-            ),
             const SizedBox(height: 10),
             TextFormField(
               controller: _nameController,
@@ -606,113 +940,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Text('Date of Birth is : ${timeOfDay.format(context)}'),
                 IconButton(
                   onPressed: () {
-                    showDialog(
-                      context: context,
-                      useSafeArea: true,
-                      barrierColor: Colors.amber,
-                      // barrierDismissible: false,
-                      barrierLabel: 'barrierLabel',
-                      builder: (_) {
-                        ///SimpleDialog
-                        // return SimpleDialog(
-                        //   title: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //     children: [
-                        //       const Text('Title text'),
-                        //       IconButton(
-                        //         onPressed: () {
-                        //           Navigator.pop(context);
-                        //         },
-                        //         icon: const Icon(
-                        //           Icons.close,
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        //   children: [
-                        //     const Text('This is SimpleDialog'),
-                        //     const Text('Hello'),
-                        //   ],
-                        // );
+                    _showBottomSheet();
+                    // if (Platform.isAndroid) {
+                    //   _showAlertDialog();
+                    // } else if (Platform.isIOS) {
+                    //   _showCupertinoAlertDialog();
+                    // }
 
-                        /// AboutDialog
-                        // return const AboutDialog(
-                        //   applicationIcon: Icon(
-                        //     Icons.settings,
-                        //   ),
-                        //   applicationName: 'Batch 5 PM',
-                        //   applicationVersion: '1.0.0',
-                        //   applicationLegalese: 'applicationLegalese',
-                        //   children: [
-                        //     Text('This is about dialog'),
-                        //   ],
-                        // );
-
-                        /// AlertDialog
-                        return AlertDialog(
-                          title: const Text('Are you sure want to logout?'),
-                          content: const Text('''
-                          You need to enable Developer Mode and set a flag on your device, so you can't yet expect predictive back to work on most users' Android devices. If you want to try it out on your own device though, make sure it's running API 33 or higher, and then in Settings => System => Developer options, make sure the switch is enabled next to Predictive back animations.
-                          '''),
-                          // buttonPadding: const EdgeInsets.symmetric(horizontal: 35),
-                          // actionsPadding: const EdgeInsets.symmetric(horizontal: 35),
-                          // actionsOverflowButtonSpacing: 60,
-                          actionsAlignment: MainAxisAlignment.spaceBetween,
-                          // icon: IconButton(
-                          //   onPressed: () {
-                          //     Navigator.pop(context);
-                          //   },
-                          //   icon: const Icon(Icons.close),
-                          //   visualDensity: VisualDensity.comfortable,
-                          // ),
-                          scrollable: true,
-                          semanticLabel: 'Semantic Label',
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text('No'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Yes'),
-                            ),
-                          ],
-                        );
-
-                        ///Dialog
-                        // return Dialog(
-                        //   insetPadding: EdgeInsets.zero,
-                        //   insetAnimationCurve: Curves.linear,
-                        //   surfaceTintColor: Colors.pink,
-                        //   backgroundColor: Colors.yellow,
-                        //   clipBehavior: Clip.antiAliasWithSaveLayer,
-                        //   insetAnimationDuration: const Duration(seconds: 20),
-                        //   child: SizedBox(
-                        //     height: 150,
-                        //     width: 200,
-                        //     child: CupertinoTimerPicker(
-                        //       mode: CupertinoTimerPickerMode.hm,
-                        //       initialTimerDuration: Duration.zero,
-                        //       // backgroundColor: Colors.orange,
-                        //       // This is called when the user changes the timer's
-                        //       // duration.
-                        //       onTimerDurationChanged: (Duration newDuration) {
-                        //         // print('${newDuration.inHours}:${newDuration.inMinutes}');
-                        //         var s = newDuration.toString().split(':');
-                        //         var time = TimeOfDay(
-                        //             hour: int.parse(s[0]),
-                        //             minute: int.parse(s[1]));
-                        //         // setState(() => duration = newDuration);
-                        //       },
-                        //     ),
-                        //   ),
-                        // );
-                      },
-                    );
+                    // _showSimpleDialog();
+                    // _showAboutDialog();
+                    // _showAlertDialog();
+                    // _showDialog();
                     // selectTime();
                   },
                   icon: const Icon(
