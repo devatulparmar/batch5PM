@@ -1,4 +1,4 @@
-import 'package:batch5pm/screen1.dart';
+import 'package:batch5pm/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class Screen3 extends StatefulWidget {
@@ -41,7 +41,7 @@ class _Screen3State extends State<Screen3> {
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => const Screen1(),
+                    builder: (BuildContext context) => const HomeScreen(),
                   ),
                   (Route r) {
                     return false;

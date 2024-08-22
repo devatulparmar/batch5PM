@@ -1,5 +1,5 @@
 
-import 'package:batch5pm/screen1.dart';
+import 'package:batch5pm/home_screen.dart';
 import 'package:batch5pm/screen2.dart';
 import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/routes.dart';
@@ -9,7 +9,7 @@ void main() {
   runApp(
     MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: MyAppRouter.generateRoute,

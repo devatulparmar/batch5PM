@@ -2,14 +2,14 @@ import 'package:batch5pm/screen2.dart';
 import 'package:batch5pm/utils/const.dart';
 import 'package:flutter/material.dart';
 
-class Screen1 extends StatefulWidget {
-  const Screen1({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<Screen1> createState() => _Screen1State();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _Screen1State extends State<Screen1> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
