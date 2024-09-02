@@ -1,6 +1,8 @@
+import 'package:batch5pm/NestedProfileScreen.dart';
 import 'package:batch5pm/food_screen.dart';
 import 'package:batch5pm/home_screen.dart';
 import 'package:batch5pm/login_screen.dart';
+import 'package:batch5pm/nested_screen.dart';
 import 'package:batch5pm/register_screen.dart';
 import 'package:batch5pm/sales_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +18,11 @@ class _MyBottomBarState extends State<MyBottomBar> {
   int selectedIndex = 0;
 
   final List _list = const [
-    HomeScreen(),
+    NestedScreen(),
     LoginScreen(),
     RegisterScreen(),
     FoodScreen(),
-    SaleScreen(),
+    NestedProfileScreen(),
   ];
 
   @override
