@@ -1,6 +1,8 @@
+import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/my_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -17,10 +19,16 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController _passwordController;
   late bool isObscureText;
   late FocusNode myFocusNode;
+  late SharedPreferences _preferences;
+
+  Future initSharedPreferences() async {
+    _preferences = await SharedPreferences.getInstance();
+  }
 
   @override
   void initState() {
     super.initState();
+    initSharedPreferences();
     isObscureText = true;
     _formKey = GlobalKey<FormState>();
     _emailController = TextEditingController();
@@ -72,43 +80,43 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: MySnackBar.commonInputDecoration,
               ),
               const SizedBox(height: 20),
-              IntlPhoneField(
-                controller: _phoneController,
-                decoration:InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(35),
-                    borderSide: const BorderSide(
-                      color: Colors.black,
-                      width: 2,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(35),
-                    borderSide: const BorderSide(
-                      color: Colors.blue,
-                      width: 2,
-                    ),
-                  ),
-                  // labelText: "Enter Mobile",
-                  hintStyle: const TextStyle(
-                    color: Colors.blue,
-                  ),
-                  labelText: "Enter Mobile",
-                  prefixIcon: const Icon(
-                    Icons.mobile_friendly,
-                    color: Colors.blue,
-                  ),
-                  floatingLabelAlignment: FloatingLabelAlignment.start,
-                  floatingLabelBehavior: FloatingLabelBehavior.auto,
-                ),
-                initialCountryCode: 'GB',
-                onChanged: (phone) {
-                  print(phone.completeNumber);
-                  print(phone.countryCode);
-                  print(phone.countryISOCode);
-                },
-              ),
-              const SizedBox(height: 20),
+              // IntlPhoneField(
+              //   controller: _phoneController,
+              //   decoration:InputDecoration(
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(35),
+              //       borderSide: const BorderSide(
+              //         color: Colors.black,
+              //         width: 2,
+              //       ),
+              //     ),
+              //     focusedBorder: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(35),
+              //       borderSide: const BorderSide(
+              //         color: Colors.blue,
+              //         width: 2,
+              //       ),
+              //     ),
+              //     // labelText: "Enter Mobile",
+              //     hintStyle: const TextStyle(
+              //       color: Colors.blue,
+              //     ),
+              //     labelText: "Enter Mobile",
+              //     prefixIcon: const Icon(
+              //       Icons.mobile_friendly,
+              //       color: Colors.blue,
+              //     ),
+              //     floatingLabelAlignment: FloatingLabelAlignment.start,
+              //     floatingLabelBehavior: FloatingLabelBehavior.auto,
+              //   ),
+              //   initialCountryCode: 'GB',
+              //   onChanged: (phone) {
+              //     print(phone.completeNumber);
+              //     print(phone.countryCode);
+              //     print(phone.countryISOCode);
+              //   },
+              // ),
+              // const SizedBox(height: 20),
               TextFormField(
                 controller: _passwordController,
                 cursorColor: Colors.blue,
@@ -195,77 +203,77 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              TextFormField(
-                focusNode: myFocusNode,
-                controller: _confirmPassController,
-                cursorColor: Colors.blue,
-                cursorWidth: 2,
-                cursorHeight: 15,
-                cursorRadius: const Radius.circular(35),
-                textDirection: TextDirection.ltr,
-                textAlign: TextAlign.start,
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: isObscureText,
-                validator: (String? value) {
-                  if (value == null || value == '') {
-                    return "Enter a confirm password";
-                  } else if (value != _passwordController.text) {
-                    return "Both password must be same!";
-                  } else {
-                    return null;
-                  }
-                },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(35),
-                    borderSide: const BorderSide(
-                      color: Colors.black,
-                      width: 2,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(35),
-                    borderSide: const BorderSide(
-                      color: Colors.blue,
-                      width: 2,
-                    ),
-                  ),
-                  // hintText: "Enter your email",
-                  // hintStyle:const TextStyle(
-                  //   color: Colors.grey,
-                  // ),
-                  labelText: "Enter Confirm Password",
-                  labelStyle: const TextStyle(
-                    color: Colors.blue,
-                  ),
-                  prefixIcon: const Icon(
-                    Icons.password,
-                    color: Colors.blue,
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isObscureText = !isObscureText;
-                      });
-                    },
-                    icon: isObscureText
-                        ? Image.asset(
-                            'images/eye.png',
-                            width: 25,
-                            height: 25,
-                            color: Colors.blue,
-                          )
-                        : const Icon(
-                            Icons.remove_red_eye,
-                            color: Colors.blue,
-                          ),
-                  ),
-                  // enabled: false
-                  floatingLabelAlignment: FloatingLabelAlignment.start,
-                  floatingLabelBehavior: FloatingLabelBehavior.auto,
-                ),
-              ),
-              const SizedBox(height: 20),
+              // TextFormField(
+              //   focusNode: myFocusNode,
+              //   controller: _confirmPassController,
+              //   cursorColor: Colors.blue,
+              //   cursorWidth: 2,
+              //   cursorHeight: 15,
+              //   cursorRadius: const Radius.circular(35),
+              //   textDirection: TextDirection.ltr,
+              //   textAlign: TextAlign.start,
+              //   keyboardType: TextInputType.visiblePassword,
+              //   obscureText: isObscureText,
+              //   validator: (String? value) {
+              //     if (value == null || value == '') {
+              //       return "Enter a confirm password";
+              //     } else if (value != _passwordController.text) {
+              //       return "Both password must be same!";
+              //     } else {
+              //       return null;
+              //     }
+              //   },
+              //   decoration: InputDecoration(
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(35),
+              //       borderSide: const BorderSide(
+              //         color: Colors.black,
+              //         width: 2,
+              //       ),
+              //     ),
+              //     focusedBorder: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(35),
+              //       borderSide: const BorderSide(
+              //         color: Colors.blue,
+              //         width: 2,
+              //       ),
+              //     ),
+              //     // hintText: "Enter your email",
+              //     // hintStyle:const TextStyle(
+              //     //   color: Colors.grey,
+              //     // ),
+              //     labelText: "Enter Confirm Password",
+              //     labelStyle: const TextStyle(
+              //       color: Colors.blue,
+              //     ),
+              //     prefixIcon: const Icon(
+              //       Icons.password,
+              //       color: Colors.blue,
+              //     ),
+              //     suffixIcon: IconButton(
+              //       onPressed: () {
+              //         setState(() {
+              //           isObscureText = !isObscureText;
+              //         });
+              //       },
+              //       icon: isObscureText
+              //           ? Image.asset(
+              //               'images/eye.png',
+              //               width: 25,
+              //               height: 25,
+              //               color: Colors.blue,
+              //             )
+              //           : const Icon(
+              //               Icons.remove_red_eye,
+              //               color: Colors.blue,
+              //             ),
+              //     ),
+              //     // enabled: false
+              //     floatingLabelAlignment: FloatingLabelAlignment.start,
+              //     floatingLabelBehavior: FloatingLabelBehavior.auto,
+              //   ),
+              // ),
+              // const SizedBox(height: 20),
               Row(
                 children: [
                   Expanded(
@@ -273,14 +281,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 40,
                       child: ElevatedButton(
                         onPressed: () {
-                          MySnackBar.showMySnackBar(
-                            context: context,
-                            content: _phoneController.text,
-                            backgroundColor: Colors.green,
-                          );
+                          // MySnackBar.showMySnackBar(
+                          //   context: context,
+                          //   content: _phoneController.text,
+                          //   backgroundColor: Colors.green,
+                          // );
 
                           if (_formKey.currentState!.validate()) {
                             /// API call
+                            _preferences.setBool(prefLoginKey, true);
+                            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
                           }
                         },
                         child: const Text('Login'),
@@ -332,15 +342,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
 
-              GestureDetector(
-                onTap: (){
-                  print('Gesture click');
-                },
-                onLongPress: (){
-                  print('on long press');
-                },
-                child: Text('Hello'),
-              ),
+              // GestureDetector(
+              //   onTap: (){
+              //     print('Gesture click');
+              //   },
+              //   onLongPress: (){
+              //     print('on long press');
+              //   },
+              //   child: Text('Hello GestureDetector'),
+              // ),
             ],
           ),
         ),

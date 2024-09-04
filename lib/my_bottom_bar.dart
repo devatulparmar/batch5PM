@@ -5,6 +5,7 @@ import 'package:batch5pm/login_screen.dart';
 import 'package:batch5pm/nested_screen.dart';
 import 'package:batch5pm/register_screen.dart';
 import 'package:batch5pm/sales_screen.dart';
+import 'package:batch5pm/setting_screen.dart';
 import 'package:flutter/material.dart';
 
 class MyBottomBar extends StatefulWidget {
@@ -22,7 +23,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
     LoginScreen(),
     RegisterScreen(),
     FoodScreen(),
-    NestedProfileScreen(),
+    SettingScreen(),
   ];
 
   @override
@@ -112,8 +113,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
 
             ),
             const NavigationDestination(
-              icon: Icon(Icons.favorite_border),
-              selectedIcon: Icon(Icons.favorite),
+              icon: Icon(Icons.settings),
               label: 'Settings',
             ),
           ],
