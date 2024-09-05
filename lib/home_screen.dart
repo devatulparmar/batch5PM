@@ -14,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Screen 1'),
+        title: const Text('Home Screen'),
       ),
       drawer: Drawer(
         child: ListView(
@@ -116,6 +116,23 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: const Icon(Icons.list),
               title: const Text('Orders'),
             ),
+            const SizedBox(height: 10),
+            ListTile(
+              onTap: () {
+              },
+              tileColor: Colors.blue,
+              style: ListTileStyle.drawer,
+              iconColor: Colors.white,
+              textColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(35),
+              ),
+              selectedColor: Colors.white,
+              selectedTileColor: Colors.green,
+              selected: false,
+              leading: const Icon(Icons.list),
+              title: const Text('List SCreen'),
+            ),
           ],
         ),
       ),
@@ -127,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.pushNamed(context, routeRegisterScreen);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.green,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(35),
               ),
@@ -147,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.pushNamed(context, routeLoginScreen);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.green,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(35),
               ),
@@ -192,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
               // );
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.green,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(35),
               ),
@@ -212,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.pushNamed(context, routeFoodScreen);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.green,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(35),
               ),
@@ -226,6 +243,26 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             child: const Text('Food Screen'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, routeEmployeeListScreen);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(35),
+              ),
+              elevation: 5,
+              alignment: Alignment.centerLeft,
+              // fixedSize: Size(20, 35)
+              shadowColor: Colors.green,
+              side: const BorderSide(
+                color: Colors.black,
+                width: 1,
+              ),
+            ),
+            child: const Text('Employee List Screen'),
           ),
         ],
       ),
