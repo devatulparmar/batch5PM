@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(
     MaterialApp(
+      navigatorKey: globalNavigationKey,
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
