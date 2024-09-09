@@ -77,9 +77,13 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       dio.Response response = await Dio().post(
         'https://reqres.in/api/login',
-        data: FormData.fromMap(
-          {"email": "eve.holt@reqres.in", "password": "cityslicka"},
-        ),
+        data: {
+          "email": _emailController.text,
+          "password": _passwordController.text,
+        },
+        // data: FormData.fromMap(
+        //   {"email": "eve.holt@reqres.in", "password": "cityslicka"},
+        // ),
         //   data: {
         //   "email": _emailController.text,
         //   "password": _passwordController.text,
@@ -96,15 +100,15 @@ class _LoginScreenState extends State<LoginScreen> {
           print("Send value = $value");
           print("Send fullValue = $fullValue");
         },
-        options: Options(
-          sendTimeout: const Duration(seconds: 3),
-          receiveTimeout: const Duration(seconds: 3),
-          followRedirects: false,
-          contentType: "application/json",
-          headers: {
-            'Auth': 'Token',
-          },
-          maxRedirects: 1,
+        // options: Options(
+        //   sendTimeout: const Duration(seconds: 3),
+        //   receiveTimeout: const Duration(seconds: 3),
+        //   followRedirects: false,
+        //   contentType: "application/json",
+        //   headers: {
+        //     'Auth': 'Token',
+        //   },
+        //   maxRedirects: 1,
           // persistentConnection: true,
           // extra: {},
           // responseType: ResponseType.json,
@@ -117,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
           //   }
           //   return false;
           // }
-        ),
+        // ),
       );
 
       if (response.statusCode == okStatusCode) {
