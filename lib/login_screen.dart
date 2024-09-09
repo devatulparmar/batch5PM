@@ -1,8 +1,10 @@
 import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/my_snackbar.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart' as dio;
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,9 +33,13 @@ class _LoginScreenState extends State<LoginScreen> {
   Future _loginAPI() async {
     try {
       setState(() => isLoader = true);
-      Response response = await http.post(
-        Uri.parse('https://reqres.in/api/login'),
-        body: {"email": "eve.holt@reqres.in", "password": "cityslicka"},
+      http.Response response = await http.post(
+        Uri.parse('https://reqres.in/api/login/?id=5'),
+        body: {
+          "email": _emailController.text,
+          "password": _passwordController.text,
+        },
+        // body: {"email": "eve.holt@reqres.in", "password": "cityslicka"},
         // headers: {
         //   'Authentication': 'token'
         // }
@@ -42,16 +48,16 @@ class _LoginScreenState extends State<LoginScreen> {
       if (response.statusCode == okStatusCode) {
         setState(() => isLoader = false);
         _preferences.setBool(prefLoginKey, true);
-        Navigator.pushNamedAndRemoveUntil(globalNavigationKey.currentContext!, '/', (route) => false);
-      } else if(response.statusCode == notFoundStatusCode){
+        Navigator.pushNamedAndRemoveUntil(
+            globalNavigationKey.currentContext!, '/', (route) => false);
+      } else if (response.statusCode == notFoundStatusCode) {
         setState(() => isLoader = false);
         MySnackBar.showMySnackBar(
           context: globalNavigationKey.currentContext!,
           content: 'Not Found!',
           backgroundColor: Colors.red,
         );
-      }
-      else {
+      } else {
         setState(() => isLoader = false);
         MySnackBar.showMySnackBar(
           context: globalNavigationKey.currentContext!,
@@ -61,7 +67,133 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (error) {
       setState(() => isLoader = false);
-      MySnackBar.showMySnackBar(context: globalNavigationKey.currentContext!, content: error.toString());
+      MySnackBar.showMySnackBar(
+          context: globalNavigationKey.currentContext!,
+          content: error.toString());
+    }
+  }
+
+  Future _loginAPIUsingDio() async {
+    try {
+      dio.Response response = await Dio().post(
+        'https://reqres.in/api/login',
+        data: FormData.fromMap(
+          {"email": "eve.holt@reqres.in", "password": "cityslicka"},
+        ),
+        //   data: {
+        //   "email": _emailController.text,
+        //   "password": _passwordController.text,
+        // },
+        // queryParameters: {
+        //   'id': 5,
+        //   'name': 'flutter',
+        // },
+        onReceiveProgress: (int value, int fullValue) {
+          print("value = $value");
+          print("fullValue = $fullValue");
+        },
+        onSendProgress: (int value, int fullValue) {
+          print("Send value = $value");
+          print("Send fullValue = $fullValue");
+        },
+        options: Options(
+          sendTimeout: const Duration(seconds: 3),
+          receiveTimeout: const Duration(seconds: 3),
+          followRedirects: false,
+          contentType: "application/json",
+          headers: {
+            'Auth': 'Token',
+          },
+          maxRedirects: 1,
+          // persistentConnection: true,
+          // extra: {},
+          // responseType: ResponseType.json,
+          // receiveDataWhenStatusError: false,
+          // preserveHeaderCase: false,
+          // method: 'post',
+          // validateStatus: (value){
+          //   if(value == 100){
+          //     return true;
+          //   }
+          //   return false;
+          // }
+        ),
+      );
+
+      if (response.statusCode == okStatusCode) {
+        setState(() => isLoader = false);
+        _preferences.setBool(prefLoginKey, true);
+        Navigator.pushNamedAndRemoveUntil(
+          globalNavigationKey.currentContext!,
+          '/',
+              (route) => false,
+        );
+      } else {
+        setState(() => isLoader = false);
+        MySnackBar.showMySnackBar(
+          context: globalNavigationKey.currentContext!,
+          content: 'Something went wrong!',
+          backgroundColor: Colors.red,
+        );
+      }
+    }
+    on DioException catch (error){
+      switch (error.type){
+        case DioExceptionType.connectionTimeout:
+          return MySnackBar.showMySnackBar(
+            context: globalNavigationKey.currentContext!,
+            content: 'Connection Timeout!',
+            backgroundColor: Colors.red,
+          );
+        case DioExceptionType.badResponse:
+          return MySnackBar.showMySnackBar(
+            context: globalNavigationKey.currentContext!,
+            content: 'Bad Response!',
+            backgroundColor: Colors.red,
+          );
+        case DioExceptionType.receiveTimeout:
+          return MySnackBar.showMySnackBar(
+            context: globalNavigationKey.currentContext!,
+            content: 'Receive Timeout!',
+            backgroundColor: Colors.red,
+          );
+        case DioExceptionType.badCertificate:
+          return MySnackBar.showMySnackBar(
+            context: globalNavigationKey.currentContext!,
+            content: 'Bad Certificate!',
+            backgroundColor: Colors.red,
+          );
+        case DioExceptionType.cancel:
+          return MySnackBar.showMySnackBar(
+            context: globalNavigationKey.currentContext!,
+            content: 'Request Cancelled!',
+            backgroundColor: Colors.red,
+          );
+        case DioExceptionType.connectionError:
+          return MySnackBar.showMySnackBar(
+            context: globalNavigationKey.currentContext!,
+            content: 'Connection Error!',
+            backgroundColor: Colors.red,
+          );
+        case DioExceptionType.sendTimeout:
+          return MySnackBar.showMySnackBar(
+            context: globalNavigationKey.currentContext!,
+            content: 'Send Timeout!',
+            backgroundColor: Colors.red,
+          );
+        case DioExceptionType.unknown:
+          return MySnackBar.showMySnackBar(
+            context: globalNavigationKey.currentContext!,
+            content: 'Unknown Error!',
+            backgroundColor: Colors.red,
+          );
+        default:
+          return MySnackBar.showMySnackBar(
+            context: globalNavigationKey.currentContext!,
+            content: 'Something went wrong!',
+            backgroundColor: Colors.red,
+          );
+      }
     }
   }
 
@@ -114,7 +246,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     textAlign: TextAlign.start,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.emailAddress,
-                    validator: (String? value) => MySnackBar.emailValidator(value),
+                    validator: (String? value) =>
+                        MySnackBar.emailValidator(value),
                     onChanged: (String? value) {},
                     onTapOutside: (PointerDownEvent p) {
                       FocusManager.instance.primaryFocus?.unfocus();
@@ -181,16 +314,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     validator: (String? value) {
                       if (value == null || value == '') {
                         return "Enter a password";
-                      } else if (!RegExp(r'^(?=.*?[A-Z])').hasMatch(value)) {
-                        return "Should contain at least one upper case";
-                      } else if (!RegExp(r'^(?=.*[a-z])').hasMatch(value)) {
-                        return "Should contain at least one lower case";
-                      } else if (!RegExp(r'^(?=.*?[0-9])').hasMatch(value)) {
-                        return "Should contain at least one digit";
-                      } else if (!RegExp(r'^(?=.*?[!@#\$&*~])').hasMatch(value)) {
-                        return "Should contain at least one Special character";
-                      } else if (!RegExp(r'^.{10,}').hasMatch(value)) {
-                        return "Must be at least 10 characters in length ";
+                      }
+                      // else if (!RegExp(r'^(?=.*?[A-Z])').hasMatch(value)) {
+                      //   return "Should contain at least one upper case";
+                      // }
+                      // else if (!RegExp(r'^(?=.*[a-z])').hasMatch(value)) {
+                      //   return "Should contain at least one lower case";
+                      // }
+                      // else if (!RegExp(r'^(?=.*?[0-9])').hasMatch(value)) {
+                      //   return "Should contain at least one digit";
+                      // }
+                      // else if (!RegExp(r'^(?=.*?[!@#\$&*~])').hasMatch(value)) {
+                      //   return "Should contain at least one Special character";
+                      // }
+                      else if (!RegExp(r'^.{6,}').hasMatch(value)) {
+                        return "Must be at least  characters in length ";
                       } else {
                         return null;
                       }
@@ -324,9 +462,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       //   backgroundColor: Colors.green,
                       // );
 
-                      _loginAPI();
+                      _loginAPIUsingDio();
                       // if (_formKey.currentState!.validate()) {
-                      //   /// API call
+                      //   _loginAPI();
                       // }
                     },
                     child: const Text('Login'),
