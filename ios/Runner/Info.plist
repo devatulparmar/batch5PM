@@ -53,5 +53,11 @@
 	<string>This app want to access Camera</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app want to access Microphone</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app want to access Location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app want to access Location</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app want to access Location</string>
 </dict>
 </plist>
