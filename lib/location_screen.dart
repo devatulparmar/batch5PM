@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 
@@ -16,9 +17,13 @@ class _LocationScreenState extends State<LocationScreen> {
   late LocationData _locationData;
 
   Future _getLocation() async {
-    var obj = await location.getLocation();
-    _locationData = obj;
-    print(_locationData);
+    if(permissionGranted == PermissionStatus.deniedForever){
+      AppSettings.openAppSettings(type: AppSettingsType.appLocale);
+    } else {
+      var obj = await location.getLocation();
+      _locationData = obj;
+      print(_locationData);
+    }
   }
 
   Future _checkLocationServiceEnable() async {
