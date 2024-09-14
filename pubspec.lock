@@ -376,6 +376,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.0"
+  locked_shared_preferences:
+    dependency: "direct main"
+    description:
+      path: "packages/locked_shared_preferences"
+      relative: true
+    source: path
+    version: "0.0.1-01"
   matcher:
     dependency: transitive
     description:

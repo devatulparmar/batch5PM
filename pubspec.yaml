@@ -40,6 +40,8 @@ dependencies:
   dio: ^5.5.0
   location: ^5.0.0
   app_settings: ^5.1.1
+  locked_shared_preferences:
+    path: "./packages/locked_shared_preferences"
 
 dev_dependencies:
   flutter_test:

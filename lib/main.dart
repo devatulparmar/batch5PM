@@ -4,8 +4,11 @@ import 'package:batch5pm/screen2.dart';
 import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:locked_shared_preferences/locked_shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await LockedSharedPreferences.getInstance();
   runApp(
     MaterialApp(
       navigatorKey: globalNavigationKey,
