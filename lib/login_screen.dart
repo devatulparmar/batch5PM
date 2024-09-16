@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart' as dio;
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:locked_shared_preferences/locked_shared_preferences.dart';
+// import 'package:locked_shared_preferences/locked_shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -25,11 +25,11 @@ class _LoginScreenState extends State<LoginScreen> {
   late bool isObscureText;
   bool isLoader = false;
   late FocusNode myFocusNode;
-  // late SharedPreferences _preferences;
-  //
-  // Future initSharedPreferences() async {
-  //   _preferences = await SharedPreferences.getInstance();
-  // }
+  late SharedPreferences _preferences;
+
+  Future initSharedPreferences() async {
+    _preferences = await SharedPreferences.getInstance();
+  }
 
   Future _loginAPI() async {
     try {
@@ -48,8 +48,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (response.statusCode == okStatusCode) {
         setState(() => isLoader = false);
-        LockedSharedPreferences.putBool(prefLoginKey, true);
-        // _preferences.setBool(prefLoginKey, true);
+        // LockedSharedPreferences.putBool(prefLoginKey, true);
+        _preferences.setBool(prefLoginKey, true);
         Navigator.pushNamedAndRemoveUntil(
             globalNavigationKey.currentContext!, '/', (route) => false);
       } else if (response.statusCode == notFoundStatusCode) {
@@ -130,8 +130,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (response.statusCode == okStatusCode) {
         setState(() => isLoader = false);
-        LockedSharedPreferences.putBool(prefLoginKey, true);
-        // _preferences.setBool(prefLoginKey, true);
+        // LockedSharedPreferences.putBool(prefLoginKey, true);
+        _preferences.setBool(prefLoginKey, true);
         Navigator.pushNamedAndRemoveUntil(
           globalNavigationKey.currentContext!,
           '/',

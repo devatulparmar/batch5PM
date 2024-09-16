@@ -9,6 +9,7 @@ const String routeScreen1 = "/";
 const String routeScreen2 = "/screen2";
 const String routeLoginScreen = "/LoginScreen";
 const String routeLocationScreen = "/LocationScreen";
+const String routePaginationListScreen = "/PaginationListScreen";
 const String routeRegisterScreen = "/RegisterScreen";
 const String routeSalesScreen = "/SalesScreen";
 const String routeFoodScreen = "/FoodScreen";

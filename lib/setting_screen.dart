@@ -1,6 +1,6 @@
 import 'package:batch5pm/utils/const.dart';
 import 'package:flutter/material.dart';
-import 'package:locked_shared_preferences/locked_shared_preferences.dart';
+// import 'package:locked_shared_preferences/locked_shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -12,20 +12,20 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   bool isLogin = false;
-  // late SharedPreferences _preferences;
-  //
-  // Future initSharedPreferences() async{
-  //   _preferences = await SharedPreferences.getInstance();
-  //   isLogin = _preferences.getBool(prefLoginKey) ?? false;
-  //   setState(() {});
-  // }
+  late SharedPreferences _preferences;
+
+  Future initSharedPreferences() async{
+    _preferences = await SharedPreferences.getInstance();
+    isLogin = _preferences.getBool(prefLoginKey) ?? false;
+    setState(() {});
+  }
 
   @override
   void initState() {
     super.initState();
-    // initSharedPreferences();
-    isLogin = LockedSharedPreferences.getBool(prefLoginKey);
-    setState(() {});
+    initSharedPreferences();
+    // isLogin = LockedSharedPreferences.getBool(prefLoginKey);
+    // setState(() {});
   }
 
   @override
@@ -99,8 +99,8 @@ class _SettingScreenState extends State<SettingScreen> {
                       ),
                       onTap: () {
 
-                        LockedSharedPreferences.remove(prefLoginKey);
-                        // _preferences.remove(prefLoginKey);
+                        // LockedSharedPreferences.remove(prefLoginKey);
+                        _preferences.remove(prefLoginKey);
                         Navigator.pushNamed(context, '/');
                       },
                     ),
