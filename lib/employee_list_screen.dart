@@ -68,29 +68,46 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       ),
       body: Stack(
         children: [
-          ListView.builder(
-            itemCount: employeeList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.all(10),
-                child: Card(
-                  elevation: 10,
-                  child: Column(
-                    children: [
-                      CircleAvatar(
-                        backgroundImage:
-                            NetworkImage(employeeList[index].avatar ?? ""),
-                        radius: 100,
+          RefreshIndicator(
+            onRefresh: () => getEmployeeList(),
+            backgroundColor: Colors.red,
+            color: Colors.white,
+            strokeWidth: 5,
+            triggerMode: RefreshIndicatorTriggerMode.onEdge,
+            // displacement: 250,
+            // edgeOffset: 10,
+            // semanticsLabel: 'semantics label',
+            // semanticsValue: 'semantic value',
+            child: ListView.builder(
+              itemCount: employeeList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Card(
+                    elevation: 10,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Center(
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(employeeList[index].avatar ?? ""),
+                              radius: 100,
+                            ),
+                          ),
+                          Text('Employee ID :${employeeList[index].id ?? ''}'),
+                          Text(
+                              'First Name :${employeeList[index].firstName ?? ''}'),
+                          Text('Last Name :${employeeList[index].lastName ?? ""}'),
+                        ],
                       ),
-                      Text('Employee ID :${employeeList[index].id ?? ''}'),
-                      Text(
-                          'First Name :${employeeList[index].firstName ?? ''}'),
-                      Text('Last Name :${employeeList[index].lastName ?? ""}'),
-                    ],
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
           Visibility(
             visible: isLoader,
