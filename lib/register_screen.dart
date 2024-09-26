@@ -330,7 +330,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               // This is called when the user changes the timer's
               // duration.
               onTimerDurationChanged: (Duration newDuration) {
-                // print('${newDuration.inHours}:${newDuration.inMinutes}');
+                //
                 var s = newDuration.toString().split(':');
                 var time =
                     TimeOfDay(hour: int.parse(s[0]), minute: int.parse(s[1]));
@@ -357,14 +357,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
       builder: (BuildContext context) {
-        return CupertinoTimerPicker(onTimerDurationChanged: (value) {
-          print(value);
-        });
+        return CupertinoTimerPicker(onTimerDurationChanged: (value) {});
         return CupertinoDatePicker(
           initialDateTime: DateTime.now(),
-          onDateTimeChanged: (DateTime value) {
-            print(value);
-          },
+          onDateTimeChanged: (DateTime value) {},
         );
         return Container(
           decoration: const BoxDecoration(

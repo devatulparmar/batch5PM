@@ -53,8 +53,8 @@ class _SettingScreenState extends State<SettingScreen> {
 
                   foregroundImage: const NetworkImage(imgNetwork),
                   onForegroundImageError: (Object obj, StackTrace? stackTrace) {
-                    // print('obj---> $obj');
-                    // print('stackTrace--> $stackTrace');
+                    //
+                    //
                     // API call
                   },
                   onBackgroundImageError: (Object obj, StackTrace? stackTrace) {

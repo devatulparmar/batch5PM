@@ -22,7 +22,6 @@ class _LocationScreenState extends State<LocationScreen> {
     } else {
       var obj = await location.getLocation();
       _locationData = obj;
-      print(_locationData);
     }
   }
 

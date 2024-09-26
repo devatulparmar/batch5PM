@@ -34,8 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       foregroundImage: const NetworkImage(imgNetwork),
                       onForegroundImageError:
                           (Object obj, StackTrace? stackTrace) {
-                        // print('obj---> $obj');
-                        // print('stackTrace--> $stackTrace');
+                        //
+                        //
                         // API call
                       },
                       onBackgroundImageError:

@@ -35,8 +35,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                 foregroundImage: const NetworkImage(imgNetwork),
                 onForegroundImageError: (Object obj, StackTrace? stackTrace) {
-                  // print('obj---> $obj');
-                  // print('stackTrace--> $stackTrace');
+                  //
+                  //
                   // API call
                 },
                 onBackgroundImageError: (Object obj, StackTrace? stackTrace) {
@@ -56,7 +56,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 image: NetworkImage(imgNetwork),
                 onError: (Object obj, StackTrace? stackTrace) {
                   // API call
-                  print('obj---> $obj');
                 },
               ),
               borderRadius: BorderRadius.circular(155),

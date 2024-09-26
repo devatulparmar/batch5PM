@@ -20,7 +20,6 @@ class _UserListScreenState extends State<UserListScreen> {
   bool isLoader = false;
 
   Future<List<EmployeeData>> getEmployeeList() async {
-    print('api called');
     try {
       setState(() => isLoader = true);
       Response responseObj =

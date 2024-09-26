@@ -96,14 +96,8 @@ class _LoginScreenState extends State<LoginScreen> {
         //   'id': 5,
         //   'name': 'flutter',
         // },
-        onReceiveProgress: (int value, int fullValue) {
-          print("value = $value");
-          print("fullValue = $fullValue");
-        },
-        onSendProgress: (int value, int fullValue) {
-          print("Send value = $value");
-          print("Send fullValue = $fullValue");
-        },
+        onReceiveProgress: (int value, int fullValue) {},
+        onSendProgress: (int value, int fullValue) {},
         // options: Options(
         //   sendTimeout: const Duration(seconds: 3),
         //   receiveTimeout: const Duration(seconds: 3),
@@ -296,9 +290,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   //   ),
                   //   initialCountryCode: 'GB',
                   //   onChanged: (phone) {
-                  //     print(phone.completeNumber);
-                  //     print(phone.countryCode);
-                  //     print(phone.countryISOCode);
+                  //
+                  //
+                  //
                   //   },
                   // ),
                   // const SizedBox(height: 20),
@@ -507,9 +501,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       InkWell(
-                        onTap: () {
-                          print("inkwell clicked");
-                        },
+                        onTap: () {},
                         child: Text(
                           'Forgot Password',
                           style: TextStyle(
@@ -524,10 +516,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   // GestureDetector(
                   //   onTap: (){
-                  //     print('Gesture click');
+                  //
                   //   },
                   //   onLongPress: (){
-                  //     print('on long press');
+                  //
                   //   },
                   //   child: Text('Hello GestureDetector'),
                   // ),

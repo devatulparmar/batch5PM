@@ -81,7 +81,7 @@ class _ListBuildScreenState extends State<ListBuildScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // _list.add(44);
-          print(_list.contains(55));
+
           setState(() {});
         },
         backgroundColor: Colors.pink,
