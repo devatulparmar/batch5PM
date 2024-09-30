@@ -21,6 +21,9 @@ class DeviceInformation {
       debugPrint('Running on hashCode ${androidInfo.hashCode}');
     } else if (Platform.isIOS) {
       debugPrint('Hello');
+      var iosInfo = await deviceInfo.iosInfo;
+      debugPrint('identifierForVendor :: ${iosInfo.identifierForVendor}');
+      debugPrint('name :: ${iosInfo.name}');
     }
   }
 }

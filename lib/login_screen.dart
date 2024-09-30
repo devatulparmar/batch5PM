@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/my_snackbar.dart';
 import 'package:dio/dio.dart';
@@ -26,6 +28,10 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLoader = false;
   late FocusNode myFocusNode;
   late SharedPreferences _preferences;
+
+  final _controller = StreamController();
+
+  Stream get stream => _controller.stream;
 
   Future initSharedPreferences() async {
     _preferences = await SharedPreferences.getInstance();
@@ -75,12 +81,13 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future _loginAPIUsingDio() async {
+  Stream _loginAPIUsingDio() async* {
+    print('api called');
     try {
       setState(() => isLoader = true);
       dio.Response response = await Dio().post(
         'https://reqres.in/api/login',
-        data:  {"email": "eve.holt@reqres.in", "password": "cityslicka"},
+        data: {"email": "eve.holt@reqres.in", "password": "cityslicka"},
         // data: {
         //   "email": _emailController.text,
         //   "password": _passwordController.text,
@@ -107,18 +114,18 @@ class _LoginScreenState extends State<LoginScreen> {
         //     'Auth': 'Token',
         //   },
         //   maxRedirects: 1,
-          // persistentConnection: true,
-          // extra: {},
-          // responseType: ResponseType.json,
-          // receiveDataWhenStatusError: false,
-          // preserveHeaderCase: false,
-          // method: 'post',
-          // validateStatus: (value){
-          //   if(value == 100){
-          //     return true;
-          //   }
-          //   return false;
-          // }
+        // persistentConnection: true,
+        // extra: {},
+        // responseType: ResponseType.json,
+        // receiveDataWhenStatusError: false,
+        // preserveHeaderCase: false,
+        // method: 'post',
+        // validateStatus: (value){
+        //   if(value == 100){
+        //     return true;
+        //   }
+        //   return false;
+        // }
         // ),
       );
 
@@ -129,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pushNamedAndRemoveUntil(
           globalNavigationKey.currentContext!,
           '/',
-              (route) => false,
+          (route) => false,
         );
       } else {
         setState(() => isLoader = false);
@@ -139,60 +146,67 @@ class _LoginScreenState extends State<LoginScreen> {
           backgroundColor: Colors.red,
         );
       }
-    }
-    on DioException catch (error){
+    } on DioException catch (error) {
       setState(() => isLoader = false);
-      switch (error.type){
+      switch (error.type) {
         case DioExceptionType.connectionTimeout:
-          return MySnackBar.showMySnackBar(
+          yield MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Connection Timeout!',
             backgroundColor: Colors.red,
           );
+          break;
         case DioExceptionType.badResponse:
-          return MySnackBar.showMySnackBar(
+          yield MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Bad Response!',
             backgroundColor: Colors.red,
           );
+          break;
         case DioExceptionType.receiveTimeout:
-          return MySnackBar.showMySnackBar(
+          yield MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Receive Timeout!',
             backgroundColor: Colors.red,
           );
+          break;
         case DioExceptionType.badCertificate:
-          return MySnackBar.showMySnackBar(
+          yield MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Bad Certificate!',
             backgroundColor: Colors.red,
           );
+          break;
         case DioExceptionType.cancel:
-          return MySnackBar.showMySnackBar(
+          yield MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Request Cancelled!',
             backgroundColor: Colors.red,
           );
+          break;
         case DioExceptionType.connectionError:
-          return MySnackBar.showMySnackBar(
+          yield MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Connection Error!',
             backgroundColor: Colors.red,
           );
+          break;
         case DioExceptionType.sendTimeout:
-          return MySnackBar.showMySnackBar(
+          yield MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Send Timeout!',
             backgroundColor: Colors.red,
           );
+          break;
         case DioExceptionType.unknown:
-          return MySnackBar.showMySnackBar(
+          yield MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Unknown Error!',
             backgroundColor: Colors.red,
           );
+          break;
         default:
-          return MySnackBar.showMySnackBar(
+          yield MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Something went wrong!',
             backgroundColor: Colors.red,
@@ -459,14 +473,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   // ),
                   // const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () {
-                      // MySnackBar.showMySnackBar(
-                      //   context: context,
-                      //   content: _phoneController.text,
-                      //   backgroundColor: Colors.green,
-                      // );
-
-                      _loginAPIUsingDio();
+                    onPressed: () async {
+                      // stream.listen(onData) async {
+                      //   await _loginAPIUsingDio();
+                      // }
                       // if (_formKey.currentState!.validate()) {
                       //   _loginAPI();
                       // }
