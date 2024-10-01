@@ -29,10 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
   late FocusNode myFocusNode;
   late SharedPreferences _preferences;
 
-  final _controller = StreamController();
-
-  Stream get stream => _controller.stream;
-
   Future initSharedPreferences() async {
     _preferences = await SharedPreferences.getInstance();
   }
@@ -81,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Stream _loginAPIUsingDio() async* {
+  Future _loginAPIUsingDio() async {
     print('api called');
     try {
       setState(() => isLoader = true);
@@ -150,63 +146,63 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() => isLoader = false);
       switch (error.type) {
         case DioExceptionType.connectionTimeout:
-          yield MySnackBar.showMySnackBar(
+          return MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Connection Timeout!',
             backgroundColor: Colors.red,
           );
-          break;
+
         case DioExceptionType.badResponse:
-          yield MySnackBar.showMySnackBar(
+          return MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Bad Response!',
             backgroundColor: Colors.red,
           );
-          break;
+
         case DioExceptionType.receiveTimeout:
-          yield MySnackBar.showMySnackBar(
+          return MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Receive Timeout!',
             backgroundColor: Colors.red,
           );
-          break;
+
         case DioExceptionType.badCertificate:
-          yield MySnackBar.showMySnackBar(
+          return MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Bad Certificate!',
             backgroundColor: Colors.red,
           );
-          break;
+
         case DioExceptionType.cancel:
-          yield MySnackBar.showMySnackBar(
+          return MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Request Cancelled!',
             backgroundColor: Colors.red,
           );
-          break;
+
         case DioExceptionType.connectionError:
-          yield MySnackBar.showMySnackBar(
+          return MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Connection Error!',
             backgroundColor: Colors.red,
           );
-          break;
+
         case DioExceptionType.sendTimeout:
-          yield MySnackBar.showMySnackBar(
+          return MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Send Timeout!',
             backgroundColor: Colors.red,
           );
-          break;
+
         case DioExceptionType.unknown:
-          yield MySnackBar.showMySnackBar(
+          return MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Unknown Error!',
             backgroundColor: Colors.red,
           );
-          break;
+
         default:
-          yield MySnackBar.showMySnackBar(
+          return MySnackBar.showMySnackBar(
             context: globalNavigationKey.currentContext!,
             content: 'Something went wrong!',
             backgroundColor: Colors.red,
@@ -218,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    // initSharedPreferences();
+    initSharedPreferences();
     isObscureText = true;
     _formKey = GlobalKey<FormState>();
     _emailController = TextEditingController();
@@ -473,7 +469,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   // ),
                   // const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () async {
+                    onPressed: () {
+                      _loginAPIUsingDio();
                       // stream.listen(onData) async {
                       //   await _loginAPIUsingDio();
                       // }
