@@ -6,6 +6,7 @@ import 'package:batch5pm/list_build.dart';
 import 'package:batch5pm/location_screen.dart';
 import 'package:batch5pm/login_screen.dart';
 import 'package:batch5pm/pagination_list.dart';
+import 'package:batch5pm/stream_screen.dart';
 import 'package:batch5pm/user_list_screen.dart';
 import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/routes.dart';
@@ -38,6 +39,8 @@ class _NestedScreenState extends State<NestedScreen> {
             return MaterialPageRoute(builder: (_) => const PaginationListScreen());
           case routeUserListScreen:
             return MaterialPageRoute(builder: (_) => const UserListScreen());
+          case routeMyStreamScreen:
+            return MaterialPageRoute(builder: (_) => const MyStreamScreen());
           default:
             return MaterialPageRoute(
               builder: (_) => Scaffold(

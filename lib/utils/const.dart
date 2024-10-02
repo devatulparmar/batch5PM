@@ -11,6 +11,7 @@ const String routeLoginScreen = "/LoginScreen";
 const String routeLocationScreen = "/LocationScreen";
 const String routePaginationListScreen = "/PaginationListScreen";
 const String routeUserListScreen = "/UserListScreen";
+const String routeMyStreamScreen = "/MyStreamScreen";
 const String routeRegisterScreen = "/RegisterScreen";
 const String routeSalesScreen = "/SalesScreen";
 const String routeFoodScreen = "/FoodScreen";
