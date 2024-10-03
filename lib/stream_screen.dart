@@ -17,6 +17,7 @@ class _MyStreamScreenState extends State<MyStreamScreen> {
   Future<int> sumStream(Stream<int> stream) async {
     var sum = 0;
 
+    /// when multiple value added by controller
     await for (final value in stream) {
       sum += value;
       print("value $value ,sum $sum");
@@ -26,6 +27,7 @@ class _MyStreamScreenState extends State<MyStreamScreen> {
 
   Stream<int> countStream(int to) async* {
     for (int i = 1; i <= to; i++) {
+      ///return value
       yield i;
     }
   }
@@ -38,6 +40,7 @@ class _MyStreamScreenState extends State<MyStreamScreen> {
     _streamController.add(163641);
 
     ///print only when value is one
+    /// receive output value
     // myStream.listen((value){
     //   print('mystream value: $value');
     // });
