@@ -1,4 +1,3 @@
-
 import 'package:batch5pm/home_screen.dart';
 import 'package:batch5pm/screen2.dart';
 import 'package:batch5pm/utils/const.dart';
@@ -10,7 +9,14 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyAB25l3atbOYReEfwWZCbTjL0ruXahpAiw",
+      appId: "1:161121444387:android:0aba758e8789b819d1c796",
+      messagingSenderId: "",
+      projectId: "batch5pm-6a47b",
+    ),
+  );
   // await LockedSharedPreferences.getInstance();
 
   DeviceInformation().getDeviceInfo();
