@@ -134,7 +134,7 @@ class NotificationService {
   }
 
   Future<void> requestPermissions() async {
-    if (Platform.isIOS || Platform.isMacOS) {
+    if (Platform.isIOS) {
       await objLocalNotification
           .resolvePlatformSpecificImplementation<
               IOSFlutterLocalNotificationsPlugin>()
@@ -144,15 +144,15 @@ class NotificationService {
             sound: true,
             critical: true,
           );
-      await objLocalNotification
-          .resolvePlatformSpecificImplementation<
-              MacOSFlutterLocalNotificationsPlugin>()
-          ?.requestPermissions(
-            alert: true,
-            badge: true,
-            sound: true,
-            critical: true,
-          );
+      // await objLocalNotification
+      //     .resolvePlatformSpecificImplementation<
+      //         MacOSFlutterLocalNotificationsPlugin>()
+      //     ?.requestPermissions(
+      //       alert: true,
+      //       badge: true,
+      //       sound: true,
+      //       critical: true,
+      //     );
     } else if (Platform.isAndroid) {
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
           objLocalNotification.resolvePlatformSpecificImplementation<
