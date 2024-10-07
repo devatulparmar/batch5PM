@@ -1,5 +1,7 @@
 import 'package:batch5pm/home_screen.dart';
 import 'package:batch5pm/screen2.dart';
+import 'package:batch5pm/services/notification_service.dart';
+import 'package:batch5pm/services/push_notification_service.dart';
 import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/device_info.dart';
 import 'package:batch5pm/utils/routes.dart';
@@ -17,6 +19,12 @@ void main() async {
       projectId: "batch5pm-6a47b",
     ),
   );
+  await NotificationService().init();
+  await NotificationService().isAndroidPermissionGranted();
+  await NotificationService().requestPermissions();
+  await NotificationService().configureDidReceiveLocalNotificationSubject();
+  await NotificationService().configureSelectNotificationSubject();
+  await PushNotificationService().setupInteractedMessage();
   // await LockedSharedPreferences.getInstance();
 
   DeviceInformation().getDeviceInfo();

@@ -9,16 +9,22 @@ import 'package:flutter/cupertino.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  print('onBackgroundMessage called');
   if (message.notification == null) {
+    print('if called');
     NotificationService().showNotifications(
         title: message.data["title"],
         description: message.data["description"],
-        messageData: message.data);
+      messageData: message.data,
+    );
   } else {
+    print('else called');
+    print('data ${jsonEncode(message.data)}');
     NotificationService().showNotifications(
         title: message.notification?.title,
         description: message.notification?.body,
-        messageData: message.data);
+      messageData: message.data,
+    );
   }
 }
 
@@ -43,13 +49,16 @@ class PushNotificationService {
       debugPrint('FCM token :: $token');
 
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-        debugPrint('onMessage :: $message');
+        print('onMessage called');
+
         if (message.notification == null) {
+          debugPrint('onMessage ::  ${json.encode(message.data)}');
           NotificationService().showNotifications(
               title: message.data["title"],
               description: message.data["description"],
               messageData: message.data);
         } else {
+          debugPrint('onMessage notification :: ${json.encode(message.data)}');
           NotificationService().showNotifications(
               title: message.notification?.title,
               description: message.notification?.body,
@@ -58,7 +67,7 @@ class PushNotificationService {
       });
 
       messagingInstance.getInitialMessage().then((RemoteMessage? message) {
-        debugPrint('message :: $message');
+        print('getInitialMessage called');
         if (message != null) {
           if (message.notification == null) {
             NotificationService().showNotifications(
@@ -75,7 +84,7 @@ class PushNotificationService {
       });
 
       FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-        ///add stream payload when app is in background
+        print('onMessageOpenedApp called');
         selectNotificationStream.add(jsonEncode(message.data));
       });
     }
