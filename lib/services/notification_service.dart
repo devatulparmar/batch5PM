@@ -157,7 +157,7 @@ class NotificationService {
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
           objLocalNotification.resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>();
-      await androidImplementation?.requestPermission();
+      await androidImplementation?.requestNotificationsPermission();
     }
   }
 
@@ -177,7 +177,7 @@ class NotificationService {
       String? description,
       Map<String, dynamic>? messageData}) async {
     await objLocalNotification.show(
-      objLocalNotification.hashCode,
+      0,
       "$title",
       "$description",
       NotificationDetails(

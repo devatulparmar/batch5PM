@@ -6,6 +6,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 
+///enable when you run in debug mode
+@pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -17,15 +19,16 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
         description: message.data["description"],
       messageData: message.data,
     );
-  } else {
-    print('else called');
-    print('data ${jsonEncode(message.data)}');
-    NotificationService().showNotifications(
-        title: message.notification?.title,
-        description: message.notification?.body,
-      messageData: message.data,
-    );
   }
+  // else {
+  //   print('else called');
+  //   print('data ${jsonEncode(message.data)}');
+  //   NotificationService().showNotifications(
+  //       title: message.notification?.title,
+  //       description: message.notification?.body,
+  //     messageData: message.data,
+  //   );
+  // }
 }
 
 class PushNotificationService {
