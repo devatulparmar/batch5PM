@@ -1,32 +1,28 @@
-import 'package:batch5pm/home_screen.dart';
-import 'package:batch5pm/screen2.dart';
 import 'package:batch5pm/services/notification_service.dart';
 import 'package:batch5pm/services/push_notification_service.dart';
 import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/device_info.dart';
 import 'package:batch5pm/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-// import 'package:locked_shared_preferences/locked_shared_preferences.dart';
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey: "AIzaSyAB25l3atbOYReEfwWZCbTjL0ruXahpAiw",
-      appId: "1:161121444387:android:0aba758e8789b819d1c796",
-      messagingSenderId: "",
-      projectId: "batch5pm-6a47b",
-    ),
-  );
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await NotificationService().init();
   await NotificationService().isAndroidPermissionGranted();
   await NotificationService().requestPermissions();
   await NotificationService().configureDidReceiveLocalNotificationSubject();
   await NotificationService().configureSelectNotificationSubject();
   await PushNotificationService().setupInteractedMessage();
-  // await LockedSharedPreferences.getInstance();
-
   DeviceInformation().getDeviceInfo();
   runApp(
     MaterialApp(

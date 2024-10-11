@@ -177,7 +177,7 @@ class NotificationService {
       String? description,
       Map<String, dynamic>? messageData}) async {
     await objLocalNotification.show(
-      0,
+      objLocalNotification.hashCode,
       "$title",
       "$description",
       NotificationDetails(
