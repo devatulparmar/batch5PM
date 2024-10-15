@@ -4,6 +4,7 @@ import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/my_snackbar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart' as dio;
@@ -28,6 +29,30 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLoader = false;
   late FocusNode myFocusNode;
   late SharedPreferences _preferences;
+
+  static const List<String> scopes = [
+    // 'email',
+    'https://www.googleapis.com/auth/userinfo.email'
+  ];
+
+  GoogleSignIn _googleSignIn = GoogleSignIn(
+    // Optional clientId
+    // clientId: 'your-client_id.apps.googleusercontent.com',
+    scopes: scopes,
+  );
+
+  Future _handleSignIn() async {
+    GoogleSignInAccount? response;
+    try {
+      response = await _googleSignIn.signIn();
+    } catch (error) {
+      debugPrint("$error");
+    }
+    if (response != null) {
+      debugPrint("GoogleSignIn--> $response");
+      // return response.email;
+    }
+  }
 
   Future initSharedPreferences() async {
     _preferences = await SharedPreferences.getInstance();
@@ -530,6 +555,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   //   },
                   //   child: Text('Hello GestureDetector'),
                   // ),
+
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: _handleSignIn,
+                    child: const Text("Sign in With Google"),
+                  ),
                 ],
               ),
             ),
