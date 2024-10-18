@@ -1,11 +1,11 @@
 import 'dart:async';
-
 import 'package:batch5pm/utils/const.dart';
+import 'package:batch5pm/utils/google_sign_in.dart';
 import 'package:batch5pm/utils/my_snackbar.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart' as dio;
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -29,29 +29,25 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLoader = false;
   late FocusNode myFocusNode;
   late SharedPreferences _preferences;
-
-  static const List<String> scopes = [
-    // 'email',
-    'https://www.googleapis.com/auth/userinfo.email'
-  ];
-
-  GoogleSignIn _googleSignIn = GoogleSignIn(
-    // Optional clientId
-    // clientId: 'your-client_id.apps.googleusercontent.com',
-    scopes: scopes,
-  );
+  String userSocialEmail = '';
 
   Future _handleSignIn() async {
-    GoogleSignInAccount? response;
+    setState(() => isLoader = true);
+    final GoogleSignInProvider googleSignIn = GoogleSignInProvider();
     try {
-      response = await _googleSignIn.signIn();
+      final UserCredential userCredential = await googleSignIn.signIn();
+      final user = userCredential.user;
+      debugPrint('user email is = ${user?.email}');
+      if (await GoogleSignIn().isSignedIn()) {
+        setState(() {
+          userSocialEmail = user!.email!;
+        });
+        return _loginWithGoogleAPI();
+      }
     } catch (error) {
-      debugPrint("$error");
+      print(error);
     }
-    if (response != null) {
-      debugPrint("GoogleSignIn--> $response");
-      // return response.email;
-    }
+    setState(() => isLoader = false);
   }
 
   Future initSharedPreferences() async {
@@ -71,6 +67,47 @@ class _LoginScreenState extends State<LoginScreen> {
         // headers: {
         //   'Authentication': 'token'
         // }
+      );
+
+      if (response.statusCode == okStatusCode) {
+        setState(() => isLoader = false);
+        // LockedSharedPreferences.putBool(prefLoginKey, true);
+        _preferences.setBool(prefLoginKey, true);
+        Navigator.pushNamedAndRemoveUntil(
+            globalNavigationKey.currentContext!, '/', (route) => false);
+      } else if (response.statusCode == notFoundStatusCode) {
+        setState(() => isLoader = false);
+        MySnackBar.showMySnackBar(
+          context: globalNavigationKey.currentContext!,
+          content: 'Not Found!',
+          backgroundColor: Colors.red,
+        );
+      } else {
+        setState(() => isLoader = false);
+        MySnackBar.showMySnackBar(
+          context: globalNavigationKey.currentContext!,
+          content: 'Something went wrong!',
+          backgroundColor: Colors.red,
+        );
+      }
+    } catch (error) {
+      setState(() => isLoader = false);
+      MySnackBar.showMySnackBar(
+          context: globalNavigationKey.currentContext!,
+          content: error.toString());
+    }
+  }
+
+  Future _loginWithGoogleAPI() async {
+    try {
+      http.Response response = await http.post(
+        Uri.parse('https://reqres.in/api/login'),
+        body: {"email": "eve.holt@reqres.in", "password": "cityslicka"},
+        // body: {
+        //   "email": userSocialEmail,
+        //   "password": "",
+        //   "social":"google" ,
+        // },
       );
 
       if (response.statusCode == okStatusCode) {
@@ -558,7 +595,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: _handleSignIn,
+                    onPressed: () {
+                      _handleSignIn();
+                    },
                     child: const Text("Sign in With Google"),
                   ),
                 ],

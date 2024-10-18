@@ -1,5 +1,9 @@
 import 'package:batch5pm/utils/const.dart';
+import 'package:batch5pm/utils/google_sign_in.dart';
+import 'package:batch5pm/utils/my_snackbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 // import 'package:locked_shared_preferences/locked_shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,10 +18,46 @@ class _SettingScreenState extends State<SettingScreen> {
   bool isLogin = false;
   late SharedPreferences _preferences;
 
-  Future initSharedPreferences() async{
+  Future initSharedPreferences() async {
     _preferences = await SharedPreferences.getInstance();
     isLogin = _preferences.getBool(prefLoginKey) ?? false;
     setState(() {});
+  }
+
+  Future logOutGoogleSignIn() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Are you sure want to log out?"),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                final GoogleSignInProvider googleSignIn =
+                    GoogleSignInProvider();
+                try {
+                  await googleSignIn.signOut();
+                  _preferences.remove(prefLoginKey);
+                  Navigator.pushNamed(globalNavigationKey.currentContext!, '/');
+                } catch (error) {
+                  MySnackBar.showMySnackBar(
+                    context: globalNavigationKey.currentContext!,
+                    content: error.toString(),
+                  );
+                }
+              },
+              child: const Text('Yes'),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context);
+              },
+              child: const Text('No'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -97,12 +137,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         Icons.arrow_forward_ios,
                         size: 25,
                       ),
-                      onTap: () {
-
-                        // LockedSharedPreferences.remove(prefLoginKey);
-                        _preferences.remove(prefLoginKey);
-                        Navigator.pushNamed(context, '/');
-                      },
+                      onTap: logOutGoogleSignIn,
                     ),
                   )
                 : Card(
