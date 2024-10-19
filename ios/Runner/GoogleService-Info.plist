@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>623789085753-1rvhc1ivruni86srctnkljd092kf2g01.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.623789085753-1rvhc1ivruni86srctnkljd092kf2g01</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>623789085753-b533p5t828g5dpef5p4cu5hnmsspjba9.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDIDv3deTLD1TYTQ5c8Tn5P9J4OeEG3eAI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>623789085753</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.weltec.batch5pm</string>
+	<key>PROJECT_ID</key>
+	<string>batch5pm-ef4ec</string>
+	<key>STORAGE_BUCKET</key>
+	<string>batch5pm-ef4ec.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:623789085753:ios:a096b31b039f7fb770a9e8</string>
+</dict>
+</plist>

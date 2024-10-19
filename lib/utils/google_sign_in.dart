@@ -10,7 +10,9 @@ class GoogleSignInProvider {
 
   GoogleSignInProvider._internal();
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: [
+    "email",
+  ]);
 
   GoogleSignIn get googleSignIn => _googleSignIn;
 
