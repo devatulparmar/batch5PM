@@ -1,4 +1,4 @@
-
+import 'package:batch5pm/clock_screen.dart';
 import 'package:batch5pm/employee_list_screen.dart';
 import 'package:batch5pm/food_screen.dart';
 import 'package:batch5pm/home_screen.dart';
@@ -6,6 +6,7 @@ import 'package:batch5pm/list_build.dart';
 import 'package:batch5pm/location_screen.dart';
 import 'package:batch5pm/login_screen.dart';
 import 'package:batch5pm/pagination_list.dart';
+import 'package:batch5pm/segmented_button_screen.dart';
 import 'package:batch5pm/stream_screen.dart';
 import 'package:batch5pm/user_list_screen.dart';
 import 'package:batch5pm/utils/const.dart';
@@ -41,6 +42,11 @@ class _NestedScreenState extends State<NestedScreen> {
             return MaterialPageRoute(builder: (_) => const UserListScreen());
           case routeMyStreamScreen:
             return MaterialPageRoute(builder: (_) => const MyStreamScreen());
+          case routeClockScreen:
+            return MaterialPageRoute(builder: (_) => const ClockScreen());
+          case routeMySegmentedButtonScreen:
+            return MaterialPageRoute(
+                builder: (_) => const MySegmentedButtonScreen());
           default:
             return MaterialPageRoute(
               builder: (_) => Scaffold(
