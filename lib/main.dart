@@ -1,3 +1,4 @@
+import 'package:batch5pm/my_bottom_bar.dart';
 import 'package:batch5pm/services/notification_service.dart';
 import 'package:batch5pm/services/push_notification_service.dart';
 import 'package:batch5pm/utils/const.dart';
@@ -31,13 +32,13 @@ void main() async {
         primarySwatch: Colors.red,
       ),
       debugShowCheckedModeBanner: false,
-      onGenerateRoute: MyAppRouter.generateRoute,
+      // onGenerateRoute: MyAppRouter.generateRoute,
       // routes: {
       //   routeScreen1: (BuildContext context) => const Screen1(),
       //   routeScreen2: (BuildContext context) => const Screen2(),
       // },
       // debugShowCheckedModeBanner: false,
-      // home: const Screen1(),
+      home: const MyBottomBar(),
     ),
   );
 }

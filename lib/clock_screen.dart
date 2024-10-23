@@ -36,7 +36,9 @@ class _ClockScreenState extends State<ClockScreen> {
   }
 
   void _stopTimer() {
-    _timer!.cancel();
+    if (_timer != null) {
+      _timer!.cancel();
+    }
   }
 
   void _resetTimer() {
@@ -58,7 +60,9 @@ class _ClockScreenState extends State<ClockScreen> {
 
   void _stopStopWatch() {
     _isRunning = false;
-    _stopWatchTimer?.cancel();
+    if (_stopWatchTimer != null) {
+      _stopWatchTimer?.cancel();
+    }
   }
 
   void _resetStopWatch() {

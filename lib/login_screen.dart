@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:batch5pm/register_screen.dart';
 import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/google_sign_in.dart';
 import 'package:batch5pm/utils/my_snackbar.dart';
@@ -11,6 +13,7 @@ import 'package:dio/dio.dart' as dio;
 import 'package:intl_phone_field/intl_phone_field.dart';
 // import 'package:locked_shared_preferences/locked_shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -302,6 +305,7 @@ class _LoginScreenState extends State<LoginScreen> {
       // resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Login Screen'),
+        leading: const BackButton(),
       ),
       body: Stack(
         children: [
@@ -312,6 +316,19 @@ class _LoginScreenState extends State<LoginScreen> {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               child: ListView(
                 children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const RegisterScreen(),
+                        ),
+                      );
+                      // Navigator.pushNamed(context, routeClockScreen);
+                    },
+                    child: const Text('Register'),
+                  ),
+                  const SizedBox(height: 20),
                   TextFormField(
                     controller: _emailController,
                     cursorColor: Colors.blue,
@@ -599,6 +616,26 @@ class _LoginScreenState extends State<LoginScreen> {
                       _handleSignIn();
                     },
                     child: const Text("Sign in With Google"),
+                  ),
+
+                  const SizedBox(height: 20),
+                  Visibility(
+                    visible: Platform.isIOS,
+                    child: SignInWithAppleButton(
+                      onPressed: () async {
+                        final credential =
+                            await SignInWithApple.getAppleIDCredential(
+                          scopes: [
+                            AppleIDAuthorizationScopes.email,
+                            // AppleIDAuthorizationScopes.fullName,
+                          ],
+                        );
+                        print("credentials $credential");
+                        setState(() {
+                          userSocialEmail = credential.email!;
+                        });
+                      },
+                    ),
                   ),
                 ],
               ),

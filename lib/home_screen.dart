@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     CircleAvatar(
                       backgroundImage: const AssetImage(localImage),
-                      radius: 60,
+                      radius: 50,
                       // maxRadius: 200,
                       // minRadius: 50,
                       backgroundColor: Colors.grey,
