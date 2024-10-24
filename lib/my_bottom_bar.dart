@@ -2,6 +2,7 @@ import 'package:batch5pm/NestedProfileScreen.dart';
 import 'package:batch5pm/food_screen.dart';
 import 'package:batch5pm/home_screen.dart';
 import 'package:batch5pm/login_screen.dart';
+import 'package:batch5pm/my_map_screen.dart';
 import 'package:batch5pm/nested_screen.dart';
 import 'package:batch5pm/register_screen.dart';
 import 'package:batch5pm/sales_screen.dart';
@@ -21,7 +22,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
   final List _list = const [
     NestedScreen(),
     LoginScreen(),
-    RegisterScreen(),
+    GoogleMapScreen(),
     FoodScreen(),
     SettingScreen(),
   ];

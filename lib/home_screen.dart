@@ -29,125 +29,142 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Home Screen'),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            Container(
-              color: Colors.pink.shade100,
-              child: DrawerHeader(
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: const AssetImage(localImage),
-                      radius: 50,
-                      // maxRadius: 200,
-                      // minRadius: 50,
-                      backgroundColor: Colors.grey,
-                      foregroundImage: const NetworkImage(imgNetwork),
-                      onForegroundImageError:
-                          (Object obj, StackTrace? stackTrace) {
-                        //
-                        //
-                        // API call
-                      },
-                      onBackgroundImageError:
-                          (Object obj, StackTrace? stackTrace) {
-                        // API call
-                      },
-                    ),
-                    const Text("Hello"),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            ListTile(
-              onTap: () {
-                Navigator.pushNamed(context, routeLoginScreen);
-              },
-              tileColor: Colors.blue,
-              style: ListTileStyle.drawer,
-              iconColor: Colors.white,
-              textColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
-              ),
-              selectedColor: Colors.white,
-              selectedTileColor: Colors.red,
-              selected: true,
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-            ),
-            const SizedBox(height: 10),
-            ListTile(
-              onTap: () {},
-              tileColor: Colors.blue,
-              style: ListTileStyle.drawer,
-              iconColor: Colors.white,
-              textColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
-              ),
-              selectedColor: Colors.white,
-              selectedTileColor: Colors.red,
-              selected: false,
-              leading: const Icon(Icons.list),
-              title: const Text('Orders'),
-            ),
-            const SizedBox(height: 10),
-            ListTile(
-              onTap: () {
-                Navigator.pushNamed(context, routeLoginScreen);
-              },
-              tileColor: Colors.blue,
-              style: ListTileStyle.drawer,
-              iconColor: Colors.white,
-              textColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
-              ),
-              selectedColor: Colors.white,
-              selectedTileColor: Colors.red,
-              selected: true,
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-            ),
-            const SizedBox(height: 10),
-            ListTile(
-              onTap: () {},
-              tileColor: Colors.blue,
-              style: ListTileStyle.drawer,
-              iconColor: Colors.white,
-              textColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
-              ),
-              selectedColor: Colors.white,
-              selectedTileColor: Colors.red,
-              selected: false,
-              leading: const Icon(Icons.list),
-              title: const Text('Orders'),
-            ),
-            const SizedBox(height: 10),
-            ListTile(
-              onTap: () {},
-              tileColor: Colors.blue,
-              style: ListTileStyle.drawer,
-              iconColor: Colors.white,
-              textColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
-              ),
-              selectedColor: Colors.white,
-              selectedTileColor: Colors.green,
-              selected: false,
-              leading: const Icon(Icons.list),
-              title: const Text('List SCreen'),
-            ),
-          ],
-        ),
-      ),
+      // drawer: Drawer(
+      //   child: ListView(
+      //     padding: EdgeInsets.zero,
+      //     children: [
+      //       Container(
+      //         color: Colors.pink.shade100,
+      //         child: DrawerHeader(
+      //           child: Column(
+      //             children: [
+      //               CircleAvatar(
+      //                 backgroundImage: const AssetImage(localImage),
+      //                 radius: 50,
+      //                 // maxRadius: 200,
+      //                 // minRadius: 50,
+      //                 backgroundColor: Colors.grey,
+      //                 foregroundImage: const NetworkImage(imgNetwork),
+      //                 onForegroundImageError:
+      //                     (Object obj, StackTrace? stackTrace) {
+      //                   //
+      //                   //
+      //                   // API call
+      //                 },
+      //                 onBackgroundImageError:
+      //                     (Object obj, StackTrace? stackTrace) {
+      //                   // API call
+      //                 },
+      //               ),
+      //               const Text("Hello"),
+      //             ],
+      //           ),
+      //         ),
+      //       ),
+      //       const SizedBox(height: 10),
+      //       ListTile(
+      //         onTap: () {
+      //           Navigator.pushNamed(context, routeLoginScreen);
+      //         },
+      //         tileColor: Colors.blue,
+      //         style: ListTileStyle.drawer,
+      //         iconColor: Colors.white,
+      //         textColor: Colors.white,
+      //         shape: RoundedRectangleBorder(
+      //           borderRadius: BorderRadius.circular(35),
+      //         ),
+      //         selectedColor: Colors.white,
+      //         selectedTileColor: Colors.red,
+      //         selected: true,
+      //         leading: const Icon(Icons.home),
+      //         title: const Text('Home'),
+      //       ),  const SizedBox(height: 10),
+      //       ListTile(
+      //         onTap: () {
+      //           Navigator.pushNamed(context, routeLoginScreen);
+      //         },
+      //         tileColor: Colors.blue,
+      //         style: ListTileStyle.drawer,
+      //         iconColor: Colors.white,
+      //         textColor: Colors.white,
+      //         shape: RoundedRectangleBorder(
+      //           borderRadius: BorderRadius.circular(35),
+      //         ),
+      //         selectedColor: Colors.white,
+      //         selectedTileColor: Colors.red,
+      //         selected: true,
+      //         leading: const Icon(Icons.home),
+      //         title: const Text('Home'),
+      //       ),
+      //       const SizedBox(height: 10),
+      //       ListTile(
+      //         onTap: () {},
+      //         tileColor: Colors.blue,
+      //         style: ListTileStyle.drawer,
+      //         iconColor: Colors.white,
+      //         textColor: Colors.white,
+      //         shape: RoundedRectangleBorder(
+      //           borderRadius: BorderRadius.circular(35),
+      //         ),
+      //         selectedColor: Colors.white,
+      //         selectedTileColor: Colors.red,
+      //         selected: false,
+      //         leading: const Icon(Icons.list),
+      //         title: const Text('Orders'),
+      //       ),
+      //       const SizedBox(height: 10),
+      //       ListTile(
+      //         onTap: () {
+      //           Navigator.pushNamed(context, routeLoginScreen);
+      //         },
+      //         tileColor: Colors.blue,
+      //         style: ListTileStyle.drawer,
+      //         iconColor: Colors.white,
+      //         textColor: Colors.white,
+      //         shape: RoundedRectangleBorder(
+      //           borderRadius: BorderRadius.circular(35),
+      //         ),
+      //         selectedColor: Colors.white,
+      //         selectedTileColor: Colors.red,
+      //         selected: true,
+      //         leading: const Icon(Icons.home),
+      //         title: const Text('Home'),
+      //       ),
+      //       const SizedBox(height: 10),
+      //       ListTile(
+      //         onTap: () {},
+      //         tileColor: Colors.blue,
+      //         style: ListTileStyle.drawer,
+      //         iconColor: Colors.white,
+      //         textColor: Colors.white,
+      //         shape: RoundedRectangleBorder(
+      //           borderRadius: BorderRadius.circular(35),
+      //         ),
+      //         selectedColor: Colors.white,
+      //         selectedTileColor: Colors.red,
+      //         selected: false,
+      //         leading: const Icon(Icons.list),
+      //         title: const Text('Orders'),
+      //       ),
+      //       const SizedBox(height: 10),
+      //       ListTile(
+      //         onTap: () {},
+      //         tileColor: Colors.blue,
+      //         style: ListTileStyle.drawer,
+      //         iconColor: Colors.white,
+      //         textColor: Colors.white,
+      //         shape: RoundedRectangleBorder(
+      //           borderRadius: BorderRadius.circular(35),
+      //         ),
+      //         selectedColor: Colors.white,
+      //         selectedTileColor: Colors.green,
+      //         selected: false,
+      //         leading: const Icon(Icons.list),
+      //         title: const Text('List SCreen'),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       body: ListView(
         padding: const EdgeInsets.all(10),
         children: [
@@ -197,6 +214,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, routeGoogleMapScreen);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(35),
+              ),
+              elevation: 5,
+              alignment: Alignment.centerLeft,
+              // fixedSize: Size(20, 35)
+              shadowColor: Colors.green,
+              side: const BorderSide(
+                color: Colors.black,
+                width: 1,
+              ),
+            ),
+            child: const Text('Google Maps Screen'),
           ),
           ElevatedButton(
             onPressed: () {

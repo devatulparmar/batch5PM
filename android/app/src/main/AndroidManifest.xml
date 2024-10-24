@@ -37,6 +37,10 @@
         android:icon="@mipmap/ic_launcher">
 
        <meta-data
+           android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyBag7tEPSRavJboDAIBQyOv8_R3zB3dQNE" />
+
+       <meta-data
            android:name="com.google.firebase.messaging.default_notification_icon"
            android:resource="@mipmap/ic_launcher" />
 

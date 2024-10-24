@@ -1,3 +1,4 @@
+import 'package:batch5pm/my_map_screen.dart';
 import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/google_sign_in.dart';
 import 'package:batch5pm/utils/my_snackbar.dart';
@@ -125,6 +126,25 @@ class _SettingScreenState extends State<SettingScreen> {
                   Icons.arrow_forward_ios,
                   size: 25,
                 ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Card(
+              elevation: 10,
+              child: ListTile(
+                title: const Text('Google Maps'),
+                trailing: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 25,
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const GoogleMapScreen(),
+                    ),
+                  );
+                },
               ),
             ),
             const SizedBox(height: 20),

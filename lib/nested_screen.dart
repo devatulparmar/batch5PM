@@ -5,6 +5,7 @@ import 'package:batch5pm/home_screen.dart';
 import 'package:batch5pm/list_build.dart';
 import 'package:batch5pm/location_screen.dart';
 import 'package:batch5pm/login_screen.dart';
+import 'package:batch5pm/my_map_screen.dart';
 import 'package:batch5pm/pagination_list.dart';
 import 'package:batch5pm/segmented_button_screen.dart';
 import 'package:batch5pm/stream_screen.dart';
@@ -30,6 +31,8 @@ class _NestedScreenState extends State<NestedScreen> {
             return MaterialPageRoute(builder: (_) => const  HomeScreen());
           case routeFoodScreen:
             return MaterialPageRoute(builder: (_) => const  FoodScreen());
+          case routeGoogleMapScreen:
+            return MaterialPageRoute(builder: (_) => const GoogleMapScreen());
           case routeEmployeeListScreen:
             return MaterialPageRoute(builder: (_) => const  EmployeeListScreen());
           case routeLoginScreen:
