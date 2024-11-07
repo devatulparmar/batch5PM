@@ -43,7 +43,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   void addPolyLinesToMap() {
     PolylineId id = const PolylineId("poly");
     Polyline polyline = Polyline(
-        polylineId: id, color: Colors.red, points: polylineCoordinates);
+      polylineId: id,
+      color: Colors.red,
+      width: 5,
+      points: polylineCoordinates,
+    );
     polylines[id] = polyline;
     setState(() {});
   }
@@ -58,7 +62,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         wayPoints: [PolylineWayPoint(location: "Vadodara")],
       ),
     );
-    print(resultPoly.points);
+    print('points:: ${resultPoly.points}');
     if (resultPoly.points.isNotEmpty) {
       for (var point in resultPoly.points) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
@@ -121,7 +125,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     addMarkerToMap(
       id: "origin",
       position: LatLng(_originLatitude, _originLongitude),
-      descriptor: BitmapDescriptor.defaultMarker,
+      descriptor:
+          BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
     );
 
     /// destination marker
@@ -142,7 +147,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       ),
       body: GoogleMap(
         mapType: MapType.hybrid,
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(0),
         style: "This is Map Style",
         buildingsEnabled: false,
         zoomControlsEnabled: true,
