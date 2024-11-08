@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -139,51 +141,90 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     _getPolyline();
   }
 
+  void _zoomIn() {
+    mapController.animateCamera(
+      CameraUpdate.zoomIn(),
+    );
+  }
+
+  void _zoomOut() {
+    mapController.animateCamera(
+      CameraUpdate.zoomOut(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Google Maps'),
-      ),
-      body: GoogleMap(
-        mapType: MapType.hybrid,
-        padding: const EdgeInsets.all(0),
-        style: "This is Map Style",
-        buildingsEnabled: false,
-        zoomControlsEnabled: true,
-        zoomGesturesEnabled: true,
-        trafficEnabled: false,
-        scrollGesturesEnabled: true,
-        rotateGesturesEnabled: true,
-        tiltGesturesEnabled: true,
-        compassEnabled: true,
-        fortyFiveDegreeImageryEnabled: true,
-        // indoorViewEnabled: false,
-        liteModeEnabled: false,
-        mapToolbarEnabled: true,
-        myLocationButtonEnabled: true,
-        myLocationEnabled: false,
-        initialCameraPosition: const CameraPosition(
-          target: LatLng(22.31089546534487, 73.18461913615465),
-          zoom: 11,
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.arrow_back_ios),
         ),
-        // onTap: (LatLng latLongValue) {
-        //   debugPrint('on tap lat long is : $latLongValue');
-        // },
-        // onLongPress: (LatLng latLongValue) {
-        //   debugPrint('onLongPress lat long is : $latLongValue');
-        // },
-        onMapCreated: (GoogleMapController controller) {
-          mapController = controller;
-          setState(() {});
-        },
-        markers: Set.of(markers.values),
-        polylines: Set<Polyline>.of(polylines.values),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: _getLocation,
-        child: const Icon(Icons.location_searching),
+      body: Stack(
+        children: [
+          GoogleMap(
+            mapType: MapType.normal,
+            padding: const EdgeInsets.all(0),
+            style: "This is Map Style",
+            buildingsEnabled: true,
+            zoomControlsEnabled: false,
+            zoomGesturesEnabled: true,
+            mapToolbarEnabled: false,
+            trafficEnabled: true,
+            scrollGesturesEnabled: true,
+            rotateGesturesEnabled: true,
+            tiltGesturesEnabled: true,
+            compassEnabled: true,
+            fortyFiveDegreeImageryEnabled: true,
+            // indoorViewEnabled: false,
+            liteModeEnabled: false,
+            minMaxZoomPreference: MinMaxZoomPreference.unbounded,
+            myLocationButtonEnabled: false,
+            myLocationEnabled: true,
+            initialCameraPosition: const CameraPosition(
+              target: LatLng(22.31089546534487, 73.18461913615465),
+              zoom: 11,
+            ),
+            // onTap: (LatLng latLongValue) {
+            //   debugPrint('on tap lat long is : $latLongValue');
+            // },
+            // onLongPress: (LatLng latLongValue) {
+            //   debugPrint('onLongPress lat long is : $latLongValue');
+            // },
+            onMapCreated: (GoogleMapController controller) {
+              mapController = controller;
+              setState(() {});
+            },
+            markers: Set.of(markers.values),
+            polylines: Set<Polyline>.of(polylines.values),
+          ),
+          Positioned(
+            bottom: 10,
+            right: 10,
+            child: Column(
+              children: [
+                FloatingActionButton(
+                  onPressed: _zoomIn,
+                  child: const Icon(Icons.add),
+                ),
+                const SizedBox(height: 10),
+                FloatingActionButton(
+                  onPressed: _zoomOut,
+                  child: const Icon(Icons.remove),
+                ),
+                const SizedBox(height: 10),
+                FloatingActionButton(
+                  onPressed: _getLocation,
+                  child: const Icon(Icons.location_searching),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
