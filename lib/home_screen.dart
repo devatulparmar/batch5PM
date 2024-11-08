@@ -217,6 +217,26 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ElevatedButton(
             onPressed: () {
+              Navigator.pushNamed(context, routeVideoScreen);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(35),
+              ),
+              elevation: 5,
+              alignment: Alignment.centerLeft,
+              // fixedSize: Size(20, 35)
+              shadowColor: Colors.green,
+              side: const BorderSide(
+                color: Colors.black,
+                width: 1,
+              ),
+            ),
+            child: const Text('Video Screen'),
+          ),
+          ElevatedButton(
+            onPressed: () {
               Navigator.pushNamed(context, routeGoogleMapScreen);
             },
             style: ElevatedButton.styleFrom(

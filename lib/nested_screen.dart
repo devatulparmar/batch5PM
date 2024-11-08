@@ -12,6 +12,7 @@ import 'package:batch5pm/stream_screen.dart';
 import 'package:batch5pm/user_list_screen.dart';
 import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/routes.dart';
+import 'package:batch5pm/video_screen.dart';
 import 'package:flutter/material.dart';
 
 class NestedScreen extends StatefulWidget {
@@ -31,6 +32,9 @@ class _NestedScreenState extends State<NestedScreen> {
             return MaterialPageRoute(builder: (_) => const  HomeScreen());
           case routeFoodScreen:
             return MaterialPageRoute(builder: (_) => const  FoodScreen());
+          case routeVideoScreen:
+            return MaterialPageRoute(
+                builder: (_) => const MyVidePlayerScreen());
           case routeGoogleMapScreen:
             return MaterialPageRoute(builder: (_) => const GoogleMapScreen());
           case routeEmployeeListScreen:
