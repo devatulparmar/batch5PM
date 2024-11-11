@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:batch5pm/register_screen.dart';
+import 'package:batch5pm/repository/api_repository.dart';
 import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/google_sign_in.dart';
 import 'package:batch5pm/utils/my_snackbar.dart';
@@ -146,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
     print('api called');
     try {
       setState(() => isLoader = true);
-      dio.Response response = await Dio().post(
+      dio.Response response = await ApiRepository().postDioRequest(
         'https://reqres.in/api/login',
         data: {"email": "eve.holt@reqres.in", "password": "cityslicka"},
         // data: {
@@ -164,8 +165,8 @@ class _LoginScreenState extends State<LoginScreen> {
         //   'id': 5,
         //   'name': 'flutter',
         // },
-        onReceiveProgress: (int value, int fullValue) {},
-        onSendProgress: (int value, int fullValue) {},
+        // onReceiveProgress: (int value, int fullValue) {},
+        // onSendProgress: (int value, int fullValue) {},
         // options: Options(
         //   sendTimeout: const Duration(seconds: 3),
         //   receiveTimeout: const Duration(seconds: 3),

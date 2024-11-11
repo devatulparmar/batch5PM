@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:batch5pm/model/employee_list_model.dart';
+import 'package:batch5pm/repository/api_repository.dart';
 import 'package:batch5pm/utils/my_snackbar.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
@@ -22,11 +24,12 @@ class _UserListScreenState extends State<UserListScreen> {
   Future<List<EmployeeData>> getEmployeeList() async {
     try {
       setState(() => isLoader = true);
-      Response responseObj =
-          await http.get(Uri.parse('https://reqres.in/api/users'));
+      dio.Response responseObj =
+          await ApiRepository().getDioRequest('https://reqres.in/api/users');
+      // Response responseObj = await http.get(Uri.parse('https://reqres.in/api/users'));
 
       if (responseObj.statusCode == 200) {
-        var jsonDataObj = jsonDecode(responseObj.body);
+        var jsonDataObj = responseObj.data;
         tempList = jsonDataObj['data'] as List;
         total = jsonDataObj['total'];
         employeeList = tempList
