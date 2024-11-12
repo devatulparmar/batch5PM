@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:batch5pm/model/employee_list_model.dart';
 import 'package:batch5pm/repository/api_repository.dart';
+import 'package:batch5pm/utils/const.dart';
 import 'package:batch5pm/utils/my_snackbar.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
@@ -56,6 +57,13 @@ class _UserListScreenState extends State<UserListScreen> {
       appBar: AppBar(
         title: const Text('User List Screen'),
         actions: [
+          IconButton(
+            onPressed: () => Navigator.pushNamed(context, routeVideoScreen),
+            icon: const Icon(
+              Icons.add,
+              size: 25,
+            ),
+          ),
           IconButton(
             onPressed: () => getEmployeeList(),
             icon: const Icon(

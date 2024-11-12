@@ -62,6 +62,10 @@ class _NestedScreenState extends State<NestedScreen> {
             );
         }
       },
+      onPopPage: (route, result) {
+        print('Back button pressed');
+        return route.didPop(result);
+      },
     );
   }
 }
