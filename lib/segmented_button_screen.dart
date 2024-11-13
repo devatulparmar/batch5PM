@@ -47,6 +47,7 @@ class _SingleChoiceState extends State<SingleChoice> {
     return SegmentedButton(
       selected: {calendarView},
       onSelectionChanged: (Set<Calendar> newSelection) {
+        print(newSelection);
         setState(() {
           calendarView = newSelection.first;
         });

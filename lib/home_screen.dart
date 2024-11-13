@@ -165,341 +165,387 @@ class _HomeScreenState extends State<HomeScreen> {
       //     ],
       //   ),
       // ),
-      body: ListView(
-        padding: const EdgeInsets.all(10),
+      body: Stack(
         children: [
-          CarouselSlider(
-            carouselController: _controller,
-            items: List.generate(
-              items.length,
-              (int index) => Image.network(items[index]),
-            ),
-            options: CarouselOptions(
-              height: 280,
-              aspectRatio: 16 / 9,
-              viewportFraction: 0.8,
-              initialPage: 0,
-              enableInfiniteScroll: true,
-              reverse: false,
-              autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 3),
-              autoPlayAnimationDuration: const Duration(milliseconds: 800),
-              autoPlayCurve: Curves.ease,
-              enlargeCenterPage: true,
-              enlargeFactor: 0.3,
-              onPageChanged: (index, value) {
-                setState(() {
-                  _current = index;
-                });
-              },
-              scrollDirection: Axis.horizontal,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              items.length,
-              (int index) => GestureDetector(
-                onTap: () => _controller.animateToPage(index),
-                child: Container(
-                  width: 12.0,
-                  height: 12.0,
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 4.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color:
-                        Colors.black.withOpacity(_current == index ? 1 : 0.4),
-                  ),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const NetworkImage(imgNetwork),
+                fit: BoxFit.cover,
+                opacity: 0.3,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.5),
+                  BlendMode.darken,
                 ),
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routeVideoScreen);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
+          // Opacity(
+          //   opacity: 0.3,
+          //   child: Image.network(
+          //     imgNetwork,
+          //     height: MediaQuery.of(context).size.height,
+          //     width: MediaQuery.of(context).size.width,
+          //     fit: BoxFit.cover,
+          //   ),
+          // ),
+          ListView(
+            padding: const EdgeInsets.all(10),
+            children: [
+              CarouselSlider(
+                carouselController: _controller,
+                items: List.generate(
+                  items.length,
+                  (int index) => Image.network(items[index]),
+                ),
+                options: CarouselOptions(
+                  height: 280,
+                  aspectRatio: 16 / 9,
+                  viewportFraction: 0.8,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 3),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.ease,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.3,
+                  onPageChanged: (index, value) {
+                    setState(() {
+                      _current = index;
+                    });
+                  },
+                  scrollDirection: Axis.horizontal,
+                ),
               ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  items.length,
+                  (int index) => GestureDetector(
+                    onTap: () => _controller.animateToPage(index),
+                    child: Container(
+                      width: 12.0,
+                      height: 12.0,
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 4.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black
+                            .withOpacity(_current == index ? 1 : 0.4),
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ),
-            child: const Text('Video Screen'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routeGoogleMapScreen);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routeSearchScreen);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Search Screen'),
               ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routeVideoScreen);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Video Screen'),
               ),
-            ),
-            child: const Text('Google Maps Screen'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routeMySegmentedButtonScreen);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routeGoogleMapScreen);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Google Maps Screen'),
               ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routeMySegmentedButtonScreen);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Segmented Button Screen'),
               ),
-            ),
-            child: const Text('Segmented Button Screen'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routeClockScreen);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routeClockScreen);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Clock Screen'),
               ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routeMyStreamScreen);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('My Stream Screen'),
               ),
-            ),
-            child: const Text('Clock Screen'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routeMyStreamScreen);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routeUserListScreen);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('User List Screen'),
               ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routePaginationListScreen);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Pagination List Screen'),
               ),
-            ),
-            child: const Text('My Stream Screen'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routeUserListScreen);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routeLocationScreen);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Location'
+                    ' Screen'),
               ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routeRegisterScreen);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Register Screen'),
               ),
-            ),
-            child: const Text('User List Screen'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routePaginationListScreen);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routeLoginScreen);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Login Screen'),
               ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
-            child: const Text('Pagination List Screen'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routeLocationScreen);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
-              ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
-            child: const Text('Location'
-                ' Screen'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routeRegisterScreen);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
-              ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
-            child: const Text('Register Screen'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routeLoginScreen);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
-              ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
-            child: const Text('Login Screen'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (BuildContext context) => const Screen2(),
-              //   ),
-              // );
+              ElevatedButton(
+                onPressed: () {
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: (BuildContext context) => const Screen2(),
+                  //   ),
+                  // );
 
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (BuildContext context) => const Screen2(),
-              //   ),
-              // );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (BuildContext context) => const Screen2(),
+                  //   ),
+                  // );
 
-              // Navigator.pop(context);
+                  // Navigator.pop(context);
 
-              Navigator.pushNamed(context, routeSalesScreen);
+                  Navigator.pushNamed(context, routeSalesScreen);
 
-              // Navigator.pushReplacementNamed(context, routeScreen2);
+                  // Navigator.pushReplacementNamed(context, routeScreen2);
 
-              // Navigator.pushNamedAndRemoveUntil(
-              //   context,
-              //   routeScreen2,
-              //   (Route r) {
-              //     return false;
-              //   },
-              // );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
+                  // Navigator.pushNamedAndRemoveUntil(
+                  //   context,
+                  //   routeScreen2,
+                  //   (Route r) {
+                  //     return false;
+                  //   },
+                  // );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Sales Screen'),
               ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routeFoodScreen);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Food Screen'),
               ),
-            ),
-            child: const Text('Sales Screen'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routeFoodScreen);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routeEmployeeListScreen);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Employee List Screen'),
               ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
-            child: const Text('Food Screen'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routeEmployeeListScreen);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(35),
-              ),
-              elevation: 5,
-              alignment: Alignment.centerLeft,
-              // fixedSize: Size(20, 35)
-              shadowColor: Colors.green,
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1,
-              ),
-            ),
-            child: const Text('Employee List Screen'),
+            ],
           ),
         ],
       ),

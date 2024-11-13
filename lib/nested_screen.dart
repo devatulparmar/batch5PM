@@ -1,3 +1,4 @@
+import 'package:batch5pm/SearchScreen.dart';
 import 'package:batch5pm/clock_screen.dart';
 import 'package:batch5pm/employee_list_screen.dart';
 import 'package:batch5pm/food_screen.dart';
@@ -35,6 +36,8 @@ class _NestedScreenState extends State<NestedScreen> {
           case routeVideoScreen:
             return MaterialPageRoute(
                 builder: (_) => const MyVidePlayerScreen());
+          case routeSearchScreen:
+            return MaterialPageRoute(builder: (_) => const SearchScreen());
           case routeGoogleMapScreen:
             return MaterialPageRoute(builder: (_) => const GoogleMapScreen());
           case routeEmployeeListScreen:

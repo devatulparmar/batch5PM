@@ -17,6 +17,7 @@ const String routeSalesScreen = "/SalesScreen";
 const String routeFoodScreen = "/FoodScreen";
 const String routeGoogleMapScreen = "/routeGoogleMapScreen";
 const String routeVideoScreen = "/routeVideoScreen";
+const String routeSearchScreen = "/routeSearchScreen";
 const String routeClockScreen = "/ClockScreen";
 const String routeMySegmentedButtonScreen = "/MySegmentedButtonScreen";
 const String routeEmployeeListScreen = "/routeEmployeeListScreen";
