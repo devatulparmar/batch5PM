@@ -1,7 +1,9 @@
 import 'package:batch5pm/screen2.dart';
 import 'package:batch5pm/utils/const.dart';
+import 'package:batch5pm/utils/my_snackbar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -22,6 +24,81 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int _current = 0;
   final CarouselSliderController _controller = CarouselSliderController();
+
+  Future<void> _launchUrl(url) async {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url), mode: LaunchMode.platformDefault);
+    } else {
+      MySnackBar.showMySnackBar(
+          context: globalNavigationKey.currentContext!,
+          content: 'Can not launch URL : $url');
+    }
+  }
+
+  String? _encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((MapEntry e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
+  }
+
+  Future _launchEmail(String email) async {
+    var emailAddress = Uri(
+      scheme: 'mailto',
+      // queryParameters: {
+      //   'subject': 'Hello',
+      //   'body': 'Hi',
+      // },
+      path: email,
+      // query: _encodeQueryParameters(
+      //   {
+      //     'subject': '',
+      //     'body': '',
+      //   },
+      // ),
+    );
+    try {
+      await launchUrl(emailAddress);
+    } catch (e) {
+      MySnackBar.showMySnackBar(
+        context: globalNavigationKey.currentContext!,
+        content: 'Could not launch $emailAddress',
+        backgroundColor: Colors.red,
+      );
+    }
+  }
+
+  Future _launchSMS(String sms) async {
+    var number = Uri(
+      scheme: 'sms',
+      path: '+91$sms',
+      queryParameters: {
+        'body': 'This is SMS Body',
+      },
+    );
+    try {
+      await launchUrl(number);
+    } catch (e) {
+      MySnackBar.showMySnackBar(
+        context: globalNavigationKey.currentContext!,
+        content: 'Could not launch $number',
+        backgroundColor: Colors.red,
+      );
+    }
+  }
+
+  Future _launchPhone(String number) async {
+    var phone = Uri(scheme: 'tel', path: '+91$number');
+    try {
+      await launchUrl(phone);
+    } catch (e) {
+      MySnackBar.showMySnackBar(
+        context: globalNavigationKey.currentContext!,
+        content: 'Could not launch $phone',
+        backgroundColor: Colors.red,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -238,6 +315,86 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  _launchPhone("909000000000");
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Call Us on Number'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  _launchSMS("909000000000");
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Contact Us on Number'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  _launchEmail('info@mayursoftware.in');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Contact Us'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  _launchUrl('https://flutter.dev');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  elevation: 5,
+                  alignment: Alignment.centerLeft,
+                  // fixedSize: Size(20, 35)
+                  shadowColor: Colors.green,
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: const Text('Privacy Screen'),
               ),
               ElevatedButton(
                 onPressed: () {

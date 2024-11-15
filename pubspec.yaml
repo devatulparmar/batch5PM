@@ -32,6 +32,7 @@ dependencies:
   flutter_polyline_points: ^2.1.0
   video_player: ^2.9.2
   connectivity_plus: ^6.1.0
+  url_launcher: ^6.3.1
 
 #  locked_shared_preferences:
 #    path: "./packages/locked_shared_preferences"
