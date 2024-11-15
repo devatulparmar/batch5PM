@@ -46,9 +46,9 @@ class _MyStreamScreenState extends State<MyStreamScreen> {
     // });
 
     ///print only when value are more than one
-    // await for (final v in myStream) {
-    //   print("value $v");
-    // }
+    await for (final v in myStream) {
+      print("value $v");
+    }
   }
 
   @override
