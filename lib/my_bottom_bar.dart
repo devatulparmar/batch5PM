@@ -7,7 +7,9 @@ import 'package:batch5pm/nested_screen.dart';
 import 'package:batch5pm/register_screen.dart';
 import 'package:batch5pm/sales_screen.dart';
 import 'package:batch5pm/setting_screen.dart';
+import 'package:batch5pm/webview_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyBottomBar extends StatefulWidget {
   const MyBottomBar({Key? key}) : super(key: key);
@@ -21,7 +23,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
 
   final List _list = const [
     NestedScreen(),
-    LoginScreen(),
+    WebViewScreen(),
     GoogleMapScreen(),
     FoodScreen(),
     SettingScreen(),
@@ -102,8 +104,9 @@ class _MyBottomBarState extends State<MyBottomBar> {
             elevation: 30,
             surfaceTintColor: Colors.green,
             animationDuration: const Duration(milliseconds: 500),
-            onDestinationSelected: (int? index) =>
-                setState(() => selectedIndex = index ?? 0),
+            onDestinationSelected: (int? index) {
+              setState(() => selectedIndex = index ?? 0);
+            },
             destinations: [
               const NavigationDestination(
                   icon: Icon(Icons.home), label: 'home'),
