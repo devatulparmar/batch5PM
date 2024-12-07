@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:batch5pm/utils/const.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +28,11 @@ class RegisterDetailsScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
+
+          CircleAvatar(
+            radius: 100,
+            backgroundImage: FileImage(File(arguments['path'])),
+          ),
           Row(
             children: [
               Text('Name :${arguments['name']}'),

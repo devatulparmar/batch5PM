@@ -984,6 +984,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     'state': stateDDLValue,
                     'city': cityDDLValue,
                     'dob': DateFormat.yMd().format(date).toString(),
+                    'path': selectedImage!.path,
                   },
                 );
               },

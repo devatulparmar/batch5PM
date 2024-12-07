@@ -1,10 +1,8 @@
 import 'package:batch5pm/login_screen.dart';
 import 'package:batch5pm/my_bottom_bar.dart';
-import 'package:batch5pm/profile_screen.dart';
 import 'package:batch5pm/register_details_screen.dart';
 import 'package:batch5pm/register_screen.dart';
 import 'package:batch5pm/sales_screen.dart';
-import 'package:batch5pm/home_screen.dart';
 import 'package:batch5pm/screen2.dart';
 import 'package:batch5pm/food_screen.dart';
 import 'package:batch5pm/utils/const.dart';
